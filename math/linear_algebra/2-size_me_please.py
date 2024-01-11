@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" def the function that counts the shape of the matrix regardless of the dimensions."""
+""" counts the shape of the matrix regardless of the dimensions."""
 def matrix_shape(matrix):
     shape = []
 
