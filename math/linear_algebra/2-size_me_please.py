@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" 
+"""
    counts the shape of the matrix regardless of the dimensions.
 """
 
