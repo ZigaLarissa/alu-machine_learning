@@ -9,7 +9,7 @@ def add_matrices2D(mat1, mat2):
     mat1: list of lists of ints/floats
     mat2: list of lists of ints/floats
     """
-    if len(mat1) == len(mat2) or len(mat1[0]) == len(mat2[0]):
+    if len(mat1) == len(mat2) and len(mat1[0]) == len(mat2[0]):
         return [
             [
                 mat1[i][j] + mat2[i][j]
