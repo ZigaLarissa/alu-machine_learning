@@ -8,8 +8,10 @@ def poly_integral(poly, C=0):
     """
     if poly or C not valid return None
     """
-    if not isinstance(poly, list) or len(poly) <= 1 or not isinstance(C, int):
+    if not isinstance(poly, list) or len(poly) == 0 or not isinstance(C, int):
         return None
+    elif len(poly) == 1:
+        return [C]
     elif len(poly) == 1:
         return [C]
     integral_poly = [C]
