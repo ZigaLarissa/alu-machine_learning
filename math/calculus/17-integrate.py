@@ -19,5 +19,5 @@ def poly_integral(poly, C=0):
         else:
             integral_poly.append(poly[i] / (i + 1))
     if integral_poly[-1] == 0:
-        integral_poly.append(-1)  
+        integral_poly.pop() # remove last element if 0
     return integral_poly
