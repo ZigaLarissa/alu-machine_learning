@@ -10,12 +10,18 @@ def poly_integral(poly, C=0):
     """
     if not isinstance(poly, list) or len(poly) < 1 or not isinstance(C, int):
         return None
-    elif len(poly) == 1:
-        return [C]
-    integral_poly = [C]
-    for i in range(len(poly)):
-        if poly[i] % (i + 1) == 0:
-            integral_poly.append(poly[i] // (i + 1))
+    for i in poly:
+        if type(i) is not int and type(i) is not float:
+            return None
+    if type(C) is float and C.is_integer():
+        C = int(C)
+    integral = [C]
+    for power, coefficient in enumerate(poly):
+        if (coefficient % (power + 1)) is 0:
+            new_coefficient = coefficient // (power + 1)
         else:
-            integral_poly.append(poly[i] / (i + 1))
-    return integral_poly
+            new_coefficient = coefficient / (power + 1)
+        integral.append(new_coefficient)
+    while integral[-1] is 0 and len(integral) > 1:
+        integral = integral[:-1]
+    return integral
