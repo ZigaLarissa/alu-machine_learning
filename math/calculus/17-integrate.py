@@ -8,7 +8,7 @@ def poly_integral(poly, C=0):
     """
     if poly or C not valid return None
     """
-    if not isinstance(poly, list) or len(poly) == 0 or not isinstance(C, int):
+    if not isinstance(poly, list) or len(poly) <= 1 or not isinstance(C, int):
         return None
     elif len(poly) == 1:
         return [C]
@@ -18,6 +18,4 @@ def poly_integral(poly, C=0):
             integral_poly.append(poly[i] // (i + 1))
         else:
             integral_poly.append(poly[i] / (i + 1))
-    if integral_poly[-1] == 0:
-        integral_poly.pop() # remove last element if 0
     return integral_poly
