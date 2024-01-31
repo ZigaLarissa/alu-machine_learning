@@ -10,7 +10,7 @@ def poly_integral(poly, C=0):
     """
     if not isinstance(poly, list) or len(poly) == 0 or not isinstance(C, int):
         return None
-    elif len(poly) == 1:
+    elif len(poly) == 1 and poly[0] == 0:
         return [C]
     elif len(poly) == 1:
         return [C]
