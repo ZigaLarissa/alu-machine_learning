@@ -4,6 +4,7 @@
 poisson distribution
 """
 
+
 class Poisson():
     """
     poisson distribution
