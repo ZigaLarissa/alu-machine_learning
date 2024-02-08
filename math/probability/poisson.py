@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-from numpy import random
+"""
+poisson distribution
+"""
 
 class Poisson():
     """
