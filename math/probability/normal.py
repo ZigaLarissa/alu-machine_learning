@@ -51,3 +51,14 @@ class Normal():
         pi = 3.1415926536
         return ((1 / (self.stddev * ((2 * pi) ** 0.5))) *
                 (e ** (-0.5 * (((x - self.mean) / self.stddev) ** 2))))
+
+    def cdf(self, x):
+        """
+        Calculates the value of the CDF for a given x-value
+        """
+        e = 2.7182818285
+        pi = 3.1415926536
+        summation = 0
+        for i in range(0, int(x * 1000) + 1):
+            summation += (self.pdf(i / 1000))
+        return ((1 / 1000) * summation)
