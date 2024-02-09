@@ -58,7 +58,6 @@ class Normal():
         """
         e = 2.7182818285
         pi = 3.1415926536
-        summation = 0
-        for i in range(0, int(x * 1000) + 1):
-            summation += (self.pdf(i / 1000))
-        return ((1 / 1000) * summation)
+        return (0.5 * (1 + (e ** ((x - self.mean) / (self.stddev * (2 ** 0.5)))))
+                * (1 + (x - self.mean) / (self.stddev * (2 ** 0.5))))
+    
