@@ -58,6 +58,9 @@ class Normal():
         """
         e = 2.7182818285
         pi = 3.1415926536
-        return (1 * (1 + (e ** ((x - self.mean) / (self.stddev * (2 ** 0.5)))))
-                * (1 + (x - self.mean) / (self.stddev * (2 ** 0.5))))
-    
+        value = (x - self.mean) / (self.stddev * (2 ** (1 / 2)))
+        val = value - ((value ** 3) / 3) + ((value ** 5) / 10)
+        val = val - ((value ** 7) / 42) + ((value ** 9) / 216)
+        val *= (2 / (pi ** (1 / 2)))
+        cdf = (1 / 2) * (1 + val)
+        return cdf
