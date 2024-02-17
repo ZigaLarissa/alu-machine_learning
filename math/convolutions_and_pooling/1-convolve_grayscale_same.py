@@ -18,18 +18,19 @@ def convolve_grayscale_same(images, kernel):
                 kw is the width of the kernel
     Returns: numpy.ndarray containing the convolved images
     """
-
-    m, h, w = images.shape
+    
+    
     kh, kw = kernel.shape
 
-    ph = max(int((kh - 1) / 2), int(kh / 2))
-    pw = max(int((kw - 1) / 2), int(kw / 2))
-
-    padded_images = np.pad(images, ((0, 0), (ph, ph), (pw, pw)), 'constant')
-
-    convolved_images = np.zeros((m, h, w))
-
-    for i in range(m):
-        shadow_region = np.lib.stride_tricks.sliding_window_view(padded_images[i], (kh, kw))
-        convolved_images[i] = np.sum(shadow_region * kernel, axis = (1, 2))
+    if kh == kw:
+        m, h, w = images.shape
+        y = y - kh + 1
+        x = x - kh + 1
+    
+        convolved_images = np.zeros((m, y, x))
+        for i in range(h):
+            for j in range(w):
+                shadow_area = images[:, i:i + m, j:j + kw]
+                convolved_images[:, i, j] = \
+                    np.sum(shadow_area * kernel, axis=(1, 2))
     return convolved_images
