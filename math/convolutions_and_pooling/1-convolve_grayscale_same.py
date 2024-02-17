@@ -18,19 +18,17 @@ def convolve_grayscale_same(images, kernel):
                 kw is the width of the kernel
     Returns: numpy.ndarray containing the convolved images
     """
-    
-    
-    kh, kw = kernel.shape
 
-    if kh == kw:
-        m, h, w = images.shape
-        y = y - kh + 1
-        x = x - kh + 1
-    
-        convolved_images = np.zeros((m, y, x))
-        for i in range(h):
-            for j in range(w):
-                shadow_area = images[:, i:i + m, j:j + kw]
+
+    m, n = kernel.shape
+    if m == n:
+        i, y, x = images.shape
+        y = y - m + 1
+        x = x - m + 1
+        convolved_images = np.zeros((i, y, x))
+        for i in range(y):
+            for j in range(x):
+                shadow_area = images[:, i:i + m, j:j + n]
                 convolved_images[:, i, j] = \
                     np.sum(shadow_area * kernel, axis=(1, 2))
     return convolved_images
