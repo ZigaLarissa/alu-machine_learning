@@ -30,3 +30,6 @@ def convolve_grayscale_same(images, kernel):
                 convolved_images[:, i, j] = \
                     np.sum(shadow_area * kernel, axis=(1, 2))
         return convolved_images
+    else:
+        return None
+   
