@@ -23,21 +23,11 @@ def convolve_grayscale_padding(images, kernel, padding):
                 pw is the padding for the width of the image
     Returns: numpy.ndarray containing the convolved images
     """
-    m = images.shape[0]
-    h = images.shape[1]
-    w = images.shape[2]
-    kh = kernel.shape[0]
-    kw = kernel.shape[1]
-    if kh % 2 == 1:
-        ph = (kh - 1) // 2
-    else:
-        ph = kh // 2
-    if kw % 2 == 1:
-        pw = (kw - 1) // 2
-    else:
-        pw = kw // 2
-    padded = np.pad(images, ((0, 0), (ph, ph), (pw, pw)),
-                    'constant', constant_values=0)
+    m, h, w = images.shape
+    kh, kw = kernel.shape
+    ph = max(int((kh - 1) / 2), int(kh / 2))
+    pw = max(int((kw - 1) / 2), int(kw / 2))
+    padded = np.pad(images, ((0, 0), (ph, ph), (pw, pw)), 'constant')
     conv = np.zeros((m, h, w))
     for i in range(h):
         for j in range(w):
