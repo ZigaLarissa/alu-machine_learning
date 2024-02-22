@@ -8,7 +8,7 @@ def determinant(matrix):
     """
     Calculates the determinant of a matrix.
     """
-    if len(matrix) == 0:
+    if matrix == [[]]:
         return 1
 
     if not all(isinstance(row, list) for row in matrix):
