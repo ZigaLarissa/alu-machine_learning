@@ -4,9 +4,6 @@ This module contains the function to calculate the determinant of a matrix.
 """
 
 
-import numpy as np
-
-
 def determinant(matrix):
     """
     Calculates the determinant of a matrix.
