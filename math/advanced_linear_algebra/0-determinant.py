@@ -9,7 +9,7 @@ def determinant(matrix):
     Calculates the determinant of a matrix.
     """
     if len(matrix) == 0:
-        return 1
+        return 0
 
     if not all(isinstance(row, list) for row in matrix):
         raise TypeError("matrix must be a list of lists")
