@@ -84,4 +84,4 @@ def cofactor(matrix):
             cofactor_row = [row[:j] + row[j+1:]
                             for row in (matrix[:i] + matrix[i+1:])]
             cofactor_matrix.append(determinant(cofactor_row) * (-1)**(i+j))
-        return [cofactor_matrix[j][i] for i in range(len(matrix)) for j in range(len(matrix[0]))]
+    return [cofactor_matrix[j][i] for i in range(len(matrix)) for j in range(len(matrix[0]))]
