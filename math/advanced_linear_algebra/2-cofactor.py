@@ -80,5 +80,5 @@ def cofactor(matrix):
     
     for i in range(len(matrix)):
         for j in range(len(matrix)):
-            matrix[i][j] = minor(matrix)[i][j] * (-1)**(i+j)
-    return matrix
+            matrix[i][j] = (-1)**(i+j) * determinant([row[:j] + row[j+1:] for row in (matrix[:i] + matrix[i+1:])])
+    return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix))]
