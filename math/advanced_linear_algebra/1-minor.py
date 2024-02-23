@@ -2,6 +2,8 @@
 """
 this module contains the function to calculate the minor of a matrix.
 """
+
+
 def determinant(matrix):
     """
     Calculates the determinant of a matrix.
@@ -29,6 +31,7 @@ def determinant(matrix):
         answer += sign * matrix[0][j] * determinant(sub_matrix)
     return answer
 
+
 def minor(matrix):
     """
     Calculates the minor of a matrix.
@@ -41,7 +44,7 @@ def minor(matrix):
 
     if len(matrix) == 1:
         return [[1]]
-    
+
     if len(matrix) == 2:
         return [[matrix[1][1], matrix[1][0]], [matrix[0][1], matrix[0][0]]]
 
@@ -49,7 +52,8 @@ def minor(matrix):
     for i in range(len(matrix)):
         minor_row = []
         for j in range(len(matrix)):
-            sub_matrix = [row[:j] + row[j+1:] for row in (matrix[:i] + matrix[i+1:])]
+            sub_matrix = [row[:j] + row[j+1:] for row in
+                          (matrix[:i] + matrix[i+1:])]
             minor_row.append(determinant(sub_matrix))
         minor_matrix.append(minor_row)
     return minor_matrix
