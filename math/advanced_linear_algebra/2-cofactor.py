@@ -65,20 +65,22 @@ def cofactor(matrix):
     """
     if not all(isinstance(row, list) for row in matrix):
         raise TypeError("matrix must be a list of lists")
-    
+
     if matrix == [[]] or not all(len(matrix) == len(row) for row in matrix):
         raise ValueError("matrix must be a non-empty square matrix")
-    
+
     if len(matrix) == 1:
         return [[1]]
-    
+
     if len(matrix) == 2:
         for i in range(len(matrix)):
             for j in range(len(matrix)):
                 matrix[i][j] *= (-1)**(i+j)
         return [[matrix[1][1], matrix[1][0]], [matrix[0][1], matrix[0][0]]]
-    
+
+    cofactor_matrix = []
     for i in range(len(matrix)):
         for j in range(len(matrix)):
-            matrix[i][j] = (-1)**(i+j) * determinant([row[:j] + row[j+1:] for row in (matrix[:i] + matrix[i+1:])])
-    return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix))]
+            cofactor_row = [row[:j] + row[j+1:] for row in (matrix[:i] + matrix[i+1:])]
+            cofactor_matrix.append(determinant(cofactor_row) * (-1)**(i+j))
+    return [cofactor_matrix[i:i+len(matrix)] for i in range(0, len(cofactor_matrix), len(matrix))]
