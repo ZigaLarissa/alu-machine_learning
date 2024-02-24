@@ -11,8 +11,6 @@ def is_positive_definite(matrix):
     """
     if not isinstance(matrix, np.ndarray):
         raise TypeError("matrix must be a numpy.ndarray")
-    if len(matrix.shape) != 2:
-        return False
     if matrix.shape[0] != matrix.shape[1]:
         return False
     if not np.all(np.linalg.eigvals(matrix) > 0):
@@ -41,8 +39,6 @@ def is_negative_definite(matrix):
     """
     if not isinstance(matrix, np.ndarray):
         raise TypeError("matrix must be a numpy.ndarray")
-    if len(matrix.shape) != 2:
-        return False
     if matrix.shape[0] != matrix.shape[1]:
         return False
     if not np.all(np.linalg.eigvals(matrix) < 0):
@@ -56,8 +52,6 @@ def is_negative_semidefinite(matrix):
     """
     if not isinstance(matrix, np.ndarray):
         raise TypeError("matrix must be a numpy.ndarray")
-    if len(matrix.shape) != 2:
-        return False
     if matrix.shape[0] != matrix.shape[1]:
         return False
     if not np.all(np.linalg.eigvals(matrix) <= 0):
@@ -71,8 +65,6 @@ def is_indefinite(matrix):
     """
     if not isinstance(matrix, np.ndarray):
         raise TypeError("matrix must be a numpy.ndarray")
-    if len(matrix.shape) != 2:
-        return False
     if matrix.shape[0] != matrix.shape[1]:
         return False
     if not any(np.linalg.eigvals(matrix) > 0) and not any(np.linalg.eigvals(matrix) < 0):
