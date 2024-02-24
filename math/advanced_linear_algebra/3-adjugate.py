@@ -21,7 +21,7 @@ def determinant(matrix):
         return matrix[0][0]
 
     if len(matrix) == 2:
-        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+        return matrix[0][0] * matrix[1][0] - matrix[0][1] * matrix[1][1]
 
     size = len(matrix)
     answer = 0
