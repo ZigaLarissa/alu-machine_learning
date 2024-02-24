@@ -21,7 +21,7 @@ def determinant(matrix):
         return matrix[0][0]
 
     if len(matrix) == 2:
-        return matrix[0][0] * matrix[1][0] - matrix[0][1] * matrix[1][1]
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
 
     size = len(matrix)
     answer = 0
@@ -105,7 +105,7 @@ def adjugate(matrix):
         for i in range(len(matrix)):
             for j in range(len(matrix)):
                 matrix[i][j] *= (-1)**(i+j)
-        return [[matrix[1][1], matrix[1][0]], [matrix[0][1], matrix[0][0]]]
+        return [[matrix[1][1], matrix[0][1]], [matrix[1][0], matrix[0][0]]]
 
     adjugate_matrix = []
     cofactor_matrix = cofactor(matrix)
