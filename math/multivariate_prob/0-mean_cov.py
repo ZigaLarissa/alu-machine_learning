@@ -18,7 +18,7 @@ def mean_cov(X):
     returns:
     mean, cov:
     - mean: numpy.ndarray (d, 1) containing the mean of the data set
-    - cov: numpy.ndarray (d, d) containing the covariance matrix of 
+    - cov: numpy.ndarray (d, d) containing the covariance matrix of
     the data set
     """
     if type(X) is not np.ndarray or len(X.shape) != 2:
