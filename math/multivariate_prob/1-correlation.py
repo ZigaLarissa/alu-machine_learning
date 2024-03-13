@@ -41,3 +41,4 @@ def correlation(C):
                 corr_matrix[i, j] = 0
             else:
                 corr_matrix[i, j] = np.nan
+    return corr_matrix
