@@ -28,7 +28,7 @@ def correlation(C):
         raise ValueError("C must be a 2D square matrix")
 
     d = C.shape[0]
-    corr_matrix = np.zeros_like(C)
+    corr_matrix = np.zeros_like(C, dtype=float)
 
     for i in range(d):
         for j in range(d):
