@@ -44,7 +44,5 @@ class MultiNormal:
 
         diff = x - self.mean
         pdf = 1.0 / np.sqrt(((2 * np.pi) ** d) * np.linalg.det(self.cov))
-        pdf *= np.exp(-0.5 * np.dot(
-            np.dot(diff.T, np.linalg.inv(self.cov)),diff
-            ))
+        pdf *= np.exp(-0.5 * np.dot(np.dot(diff.T, np.linalg.inv(self.cov)),diff))
         return pdf
