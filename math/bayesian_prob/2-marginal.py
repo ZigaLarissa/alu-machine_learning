@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 '''
     a function def marginal(x, n, P, Pr):
