@@ -45,7 +45,10 @@ class MultiNormal:
         if check_d != d or one != 1:
             raise ValueError("x must have the shape ({}, 1)".format(d))
 
-        diff = x - self.mean
-        pdf = 1.0 / np.sqrt(((2 * np.pi) ** d) * np.linalg.det(self.cov))
-        pdf *= np.exp(-0.5 * np.matmul(np.matmul(diff.T, np.linalg.inv(self.cov)),diff))
+        det = np.linalg.det(self.cov)
+        inv = np.linalg.inv(self.cov)
+        pdf = 1.0 / np.sqrt(((2 * np.pi) ** d) * det)
+        mult = np.matmul(np.matmul((x - self.mean).T, inv), (x - self.mean))
+        pdf *= np.exp(-0.5 * mult)
+        pdf = pdf[0][0]
         return pdf
