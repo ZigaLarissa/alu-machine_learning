@@ -16,16 +16,15 @@ class MultiNormal:
     - n: the number of data points.
     - d: the number of dimensions in each data point.
     - mean: a numpy.ndarray of shape (d, 1) containing the mean of data.
-    - cov: a numpy.ndarray of shape (d, d) containing the covariance matrix data.
+    - cov: a numpy.ndarray of shape (d, d) containing the covariance
+    matrix data.
     """
     def __init__(self, data):
         """
         This method initializes the MultiNormal class.
         """
-        if type(data) is not np.ndarray:
+        if not isinstance(data, np.ndarray) and len(data.shape) != 2:
             raise TypeError("data must be a 2D numpy.ndarray")
-        if len(data.shape) != 2:
-            raise ValueError("data must be a 2D numpy.ndarray")
         if data.shape[1] < 2:
             raise ValueError("data must contain multiple data points")
 
