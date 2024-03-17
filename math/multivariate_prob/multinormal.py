@@ -23,7 +23,7 @@ class MultiNormal:
         """
         This method initializes the MultiNormal class.
         """
-        if not isinstance(data, np.ndarray) and len(data.shape) != 2:
+        if not isinstance(data, np.ndarray) or data.ndim != 2:
             raise TypeError("data must be a 2D numpy.ndarray")
         if data.shape[1] < 2:
             raise ValueError("data must contain multiple data points")
