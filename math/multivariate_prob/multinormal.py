@@ -43,6 +43,6 @@ class MultiNormal:
             raise ValueError(f"x must have the shape ({d}, 1)")
 
         diff = x - self.mean
-        pdf = 1 / np.sqrt(((2 * np.pi) ** d) * np.linalg.det(self.cov))
+        pdf = 1.0 / np.sqrt(((2 * np.pi) ** d) * np.linalg.det(self.cov))
         pdf *= np.exp(-0.5 * np.dot(np.dot(diff.T, np.linalg.inv(self.cov)), diff))
         return pdf
