@@ -67,17 +67,17 @@ Example JSON payload:
 
 ```json
 {
-  "tv": 27.1
+  "tv": 22
 }
 ```
 
 Example response:
 
 ```json
-134.04
+8.078399638654128
 ```
 
-This means that the model predicts a sales amount of 27.1 for a TV marketing expense of 134.04.
+This means that the model predicts a sales amount of 8.078399638654128 for a TV marketing expense of 22.
 
 
 ### run the program:
