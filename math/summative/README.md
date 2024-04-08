@@ -17,6 +17,7 @@ This project aims to predict TV sales based on TV marketing expenses using a lin
 5. [Usage](#usage)
    - [Accessing the API](#accessing-the-api)
    - [Testing the API](#testing-the-api)
+   - [Run the program](run-the-program)
 
 ## Introduction
 
@@ -79,10 +80,12 @@ Example response:
 This means that the model predicts a sales amount of 27.1 for a TV marketing expense of 134.04.
 
 
-### How to run the program:
-T o run the program on your laptop, 1. Clone the repository
+### run the program:
+T o run the program on your laptop, 1. Clone the repository, and navigate to the summative directory
 ```
-clone 
+clone https://github.com/ZigaLarissa/alu-machine_learning.git
+cd math
+cd summative
 ```
 2. Open the notebook, choose a kettle to run with, then click on Run All.
 3. Remember to interupt the second last code cell, in order to run the last cell that will give you the Public Url to test with.
