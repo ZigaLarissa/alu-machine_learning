@@ -643,14 +643,6 @@ if __name__ == "__main__":
     await server.serve()
 
 
-# In[ ]:
-
-
-import nest_asyncio
-
-nest_asyncio.apply()
-uvicorn.run(app, port = 8888)
-
 
 # You should have gotten similar results as in the previous sections.
 # 
