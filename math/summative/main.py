@@ -614,8 +614,6 @@ print(f"Predictions of sales using Gradient Descent:\n{Y_pred_gd}")
 from fastapi import FastAPI, status
 import uvicorn
 from pydantic import BaseModel, Field
-from deta import Deta
-
 
 #Create a FastAPI instance
 app = FastAPI()
@@ -626,7 +624,7 @@ class TV(BaseModel):
 
 
 # Define the endpoint
-@app.post("/predict", status_code=200)
+@app.post("/predict", status_code=status.HTTP_200_OK)
 async def predict_fast_api(request: TV):
   #Make a call to our bes model
   value = request.tv
