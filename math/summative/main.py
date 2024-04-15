@@ -640,7 +640,7 @@ async def predict_fast_api(request: TV):
 if __name__ == "__main__":
     config = uvicorn.Config(app, port=8888)
     server = uvicorn.Server(config)
-    await server.serve()
+    server.run()
 
 
 
