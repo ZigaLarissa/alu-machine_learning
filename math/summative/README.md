@@ -49,15 +49,15 @@ A custom implementation of gradient descent is used to train the linear regressi
 
 The trained linear regression model is deployed as a FastAPI server. The server has a single endpoint `/predict` that accepts a JSON request with a `tv` field containing the TV marketing expenses, and returns the predicted sales amount.
 
-### ngrok Tunnel
-
-The FastAPI server is exposed to the public using an ngrok tunnel. The public URL provided by ngrok can be used to access the API.
 
 ## Usage
 
 ### Accessing the API
 
-To access the TV sales prediction API, you can use the public URL provided by ngrok, plus an endpoint of `/predict`. The URL will be in the format `https://<random-string>.ngrok.io/predict`.
+To access the TV sales prediction API, you can use the following render public url (even on the postman use this link):
+```
+https://alu-machine-learning-mjnz.onrender.com/predict
+```
 
 ### Testing the API
 
