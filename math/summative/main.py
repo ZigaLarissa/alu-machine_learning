@@ -602,7 +602,7 @@ print(f"Predictions of sales using Gradient Descent:\n{Y_pred_gd}")
 
 
 #What imports do we need for Fast api
-get_ipython().run_line_magic('pip', 'install fastapi uvicorn nest-asyncio')
+#get_ipython().run_line_magic('pip', 'install fastapi uvicorn nest-asyncio')
 
 
 # In[40]:
