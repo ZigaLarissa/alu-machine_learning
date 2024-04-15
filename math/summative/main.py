@@ -610,8 +610,8 @@ print(f"Predictions of sales using Gradient Descent:\n{Y_pred_gd}")
 
 #import the required libraries
 
-from distributed import Status
-from fastapi import FastAPI
+
+from fastapi import FastAPI, status
 import uvicorn
 from pydantic import BaseModel, Field
 from deta import Deta
