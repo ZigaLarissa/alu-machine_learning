@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
+"""
+This module contains the Neuron class.
+"""
+
 
 import numpy as np
 
 
 class Neuron:
-    """ Class Neuron: defines a single neuron performing binary classification. """
+    """ Class Neuron: defines a single neuron
+    performing binary classification. """
 
     def __init__(self, nx):
         """
@@ -22,6 +27,6 @@ class Neuron:
         if nx < 1:
             raise ValueError("nx must be a positive integer")
 
-        self.W = np.random.normal(1, nx)
+        self.W = np.random.randn(1, nx)
         self.b = 0
         self.A = 0
