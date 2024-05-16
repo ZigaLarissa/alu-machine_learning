@@ -26,12 +26,12 @@ class NeuralNetwork:
         """
         if type(nx) is not int:
             raise TypeError("nx must be an integer")
-        if nx < 1:
+        if nx < 0:
             raise ValueError("nx must be a positive integer")
-        
+
         if type(nodes) is not int:
             raise TypeError("nodes must be an integer")
-        if nodes < 1:
+        if nodes < 0:
             raise ValueError("nodes must be a positive integer")
 
         # Initialize weights and biases of the hidden layer
