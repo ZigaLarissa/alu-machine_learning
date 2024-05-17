@@ -103,8 +103,8 @@ class NeuralNetwork:
 
         Returns:
             ndarray: An array with shape (1, m) containing the activated output
-                     of the neural network and the cache, a dictionary containing
-                     the activation of each layer.
+                     of the neural network and the cache,
+                     a dictionary containing the activation of each layer.
         """
         # calculate the nodes input
         Z1 = np.matmul(self.W1, X) + self.b1
