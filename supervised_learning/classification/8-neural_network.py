@@ -34,6 +34,10 @@ class NeuralNetwork:
         if nodes < 1:
             raise ValueError("nodes must be a positive integer")
 
+        # Initializes normals
+        self.nx = nx
+        self.nodes = nodes
+
         # Initialize weights and biases of the hidden layer
         self.W1 = np.random.randn(nodes, nx)
         self.b1 = np.zeros((nodes, 1))
