@@ -38,12 +38,14 @@ class NeuralNetwork:
         self.nx = nx
         self.nodes = nodes
 
-        # Initialize weights and biases of the hidden layer as private attributes
+        """Initialize weights and biases of the hidden layer
+        as private attributes"""
         self.__W1 = np.random.randn(nodes, nx)
         self.__b1 = np.zeros((nodes, 1))
         self.__A1 = 0
 
-        # Initialize weights and biases of the output neuron as private attributes
+        """Initialize weights and biases of the output neuron
+        as private attributes"""
         self.__W2 = np.random.randn(1, nodes)
         self.__b2 = 0
         self.__A2 = 0
