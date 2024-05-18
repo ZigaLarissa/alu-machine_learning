@@ -44,7 +44,7 @@ class DeepNeuralNetwork:
         self.cache = {}
         self.weights = {}
 
-        # weights and biases instantiation
+        # weights instantiation
         for i in range(self.L):
             if i == 0:
                 self.weights["W1"] = np.random.randn(
@@ -52,3 +52,6 @@ class DeepNeuralNetwork:
             else:
                 self.weights["W{}".format(i + 1)] = np.random.randn(
                     layers[i], layers[i - 1]) * np.sqrt(2 / layers[i - 1])
+            
+            # Initialize biases
+            self.weights["b{}".format(i + 1)] = np.zeros((layers[i], 1))
