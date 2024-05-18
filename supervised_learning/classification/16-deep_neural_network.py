@@ -23,17 +23,16 @@ class DeepNeuralNetwork:
             TypeError: If nx is not an integer.
             ValueError: If nx is less than 1.
             TypeError: If layers is not a list.
-            ValueError: If layers does not represent a list 
+            ValueError: If layers does not represent a list
             of positive integers.
         """
         if type(nx) is not int:
             raise TypeError("nx must be an integer")
         if nx < 1:
             raise ValueError("nx must be a positive integer")
-        
+
         if type(layers) is not list or len(layers) == 0:
             raise TypeError("layers must be a list of positive integers")
-        
 
         # Public attributes
         self.nx = nx
@@ -52,6 +51,6 @@ class DeepNeuralNetwork:
             else:
                 self.weights["W{}".format(i + 1)] = np.random.randn(
                     layers[i], layers[i - 1]) * np.sqrt(2 / layers[i - 1])
-            
+
             # Initialize biases
             self.weights["b{}".format(i + 1)] = np.zeros((layers[i], 1))
