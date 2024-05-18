@@ -33,9 +33,7 @@ class DeepNeuralNetwork:
         
         if type(layers) is not list or len(layers) == 0:
             raise TypeError("layers must be a list of positive integers")
-        for element in layers:
-            if type(element) is not int or element < 1:
-                raise TypeError("layers must be a list of positive integers")
+        
 
         # Public attributes
         self.nx = nx
@@ -46,6 +44,8 @@ class DeepNeuralNetwork:
 
         # weights instantiation
         for i in range(self.L):
+            if type(layers[i]) is not int or layers[i] < 1:
+                raise TypeError("layers must be a list of positive integers")
             if i == 0:
                 self.weights["W1"] = np.random.randn(
                     layers[i], nx) * np.sqrt(2 / nx)
