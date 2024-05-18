@@ -132,7 +132,7 @@ class DeepNeuralNetwork:
         prediction = np.where(A >= 0.5, 1, 0)
         return prediction, cost
 
-    # public method for gradient descent
+    # public method of gradient descent
     def gradient_descent(self, Y, cache, alpha=0.05):
         """
         Calculates one pass of gradient descent on the neural network.
