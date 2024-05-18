@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pickle
 
+
 class DeepNeuralNetwork:
     """
     Class DeepNeuralNetwork: defines a deep neural network
@@ -197,17 +198,17 @@ class DeepNeuralNetwork:
         return self.evaluate(X, Y)
 
     def save(self, filename):
-            '''
-                Saves the instance object to a
-                file in pickle format
-            '''
-            if type(filename) is not str:
-                return
-            if filename[-4:] != ".pkl":
-                filename += ".pkl"
-            with open(filename, 'wb') as f:
-                pickle.dump(self, f)
-                f.close()
+        '''
+            Saves the instance object to a
+            file in pickle format
+        '''
+        if type(filename) is not str:
+            return
+        if filename[-4:] != ".pkl":
+            filename += ".pkl"
+        with open(filename, 'wb') as f:
+            pickle.dump(self, f)
+            f.close()
 
     @staticmethod
     def load(filename):
