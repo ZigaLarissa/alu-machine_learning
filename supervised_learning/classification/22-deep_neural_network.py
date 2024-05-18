@@ -172,6 +172,8 @@ class DeepNeuralNetwork:
             raise ValueError("iterations must be a positive integer")
         if type(alpha) is not float:
             raise ValueError("alpha must be a float")
+        if alpha < 0:
+            raise ValueError("alpha must be positive")
 
         for i in range(iterations):
             A, cache = self.forward_prop(X)
