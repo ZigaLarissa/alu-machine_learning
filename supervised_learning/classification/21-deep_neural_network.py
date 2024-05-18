@@ -140,11 +140,14 @@ class DeepNeuralNetwork:
         m = Y.shape[1]
         dZ = cache["A{}".format(self.__L)] - Y
         for i in range(self.__L, 0, -1):
-            A = cache["A{}".format(i - 1)]
-            dW = np.matmul(dZ, A.T) / m
+            A = cache["A{}".format(i + 1)]
+            A_prev = cache["A{}".format(i)]
+            W = self.__weights["W{}".format(i + 1)]
+            b = self.__weights["b{}".format(i + 1)]
+            dW = np.matmul(dZ, A_prev.T) / m
             db = np.sum(dZ, axis=1, keepdims=True) / m
-            W = self.__weights["W{}".format(i)]
-            dZ = np.matmul(W.T, dZ) * (A * (1 - A))
-            self.__weights["W{}".format(i)] = self.__weights["W{}".format(i)] - alpha * dW
-            self.__weights["b{}".format(i)] = self.__weights["b{}".format(i)] - alpha * db
+            dZ = np.matmul(W.T, dZ) * A_prev * (1 - A_prev)
+            self.__weights["W{}".format(i + 1)] -= alpha * dW
+            self.__weights["b{}".format(i + 1)] -= alpha * db
+            self.__cache["A{}".format(i)] = A
         return self.__weights, self.__cache
