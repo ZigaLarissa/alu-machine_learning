@@ -145,6 +145,8 @@ class DeepNeuralNetwork:
             db = np.sum(dZ, axis=1, keepdims=True) / m
             W = self.__weights["W{}".format(i)]
             dZ = np.matmul(W.T, dZ) * (A * (1 - A))
-            self.__weights["W{}".format(i)] = self.__weights["W{}".format(i)] - alpha * dW
-            self.__weights["b{}".format(i)] = self.__weights["b{}".format(i)] - alpha * db
+            self.__weights["W{}".format(i)] = self.__weights[
+                "W{}".format(i)] - alpha * dW
+            self.__weights["b{}".format(i)] = self.__weights[
+                "b{}".format(i)] - alpha * db
         return self.__weights, self.__cache
