@@ -3,32 +3,25 @@
 
 import tensorflow as tf
 
-
 def create_layer(prev, n, activation):
     """
-    Create a layer in a neural network.
+    Creates a fully connected layer with He et al. initialization.
 
     Args:
         prev (tf.Tensor): The tensor output of the previous layer.
         n (int): The number of nodes in the layer to create.
-        activation (tf.nn.activation_function): The activation function to use for the layer.
+        activation (str or callable): The activation function to use for the layer.
 
     Returns:
         tf.Tensor: The tensor output of the created layer.
     """
-    with tf.variable_scope("layer"):
-        # Use He et. al initialization for the layer weights
-        initializer = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    initializer = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    layer = tf.layers.dense(
+        inputs=prev,
+        units=n,
+        kernel_initializer=initializer,
+        activation=activation,
+        name="layer"
+    )
 
-        # Create the weights and biases for the layer
-        weights = tf.get_variable("weights", shape=[prev.shape[1], n], initializer=initializer)
-        biases = tf.get_variable("biases", shape=[n], initializer=tf.zeros_initializer())
-
-        # Compute the layer output
-        layer_output = tf.matmul(prev, weights) + biases
-
-        # Apply the activation function
-        if activation is not None:
-            layer_output = activation(layer_output)
-
-    return layer_output
+    return layer
