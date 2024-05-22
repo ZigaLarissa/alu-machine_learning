@@ -21,10 +21,9 @@ def create_layer(prev, n, activation):
 
     # Create the layer with tf.layers.Dense.
     layer = tf.layers.dense(
-        units=n,
+        n,
         kernel_initializer=initializer,
         activation=activation,
-        name="layer"
     )
 
     return layer(prev)
