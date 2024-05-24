@@ -55,8 +55,6 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
     tf.add_to_collection('accuracy', accuracy)
     tf.add_to_collection('train_op', train_op)
 
-    # initializer
-    init = tf.global_variables_initializer()
 
     # Saver.
     saver = tf.train.Saver()
@@ -64,7 +62,7 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
     # Create a session.
     with tf.Session() as sess:
         # Initialize all variables.
-        sess.run(init)
+        sess.run(tf.global_variables_initializer())
 
         # Train the network.
         for i in range(iterations + 1):
