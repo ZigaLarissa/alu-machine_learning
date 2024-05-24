@@ -62,7 +62,7 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
     # Create a session.
     with tf.Session() as sess:
         # Initialize all variables.
-        sess.run(tf.global_variables_initializer(mode='FAN_AVG'))
+        sess.run(tf.global_variables_initializer())
 
         # Train the network.
         for i in range(iterations + 1):
