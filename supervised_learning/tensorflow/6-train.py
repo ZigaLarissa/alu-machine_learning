@@ -25,10 +25,14 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
         for i in range(iterations + 1):
-            loss_train = sess.run(loss, feed_dict={x: X_train, y: Y_train})
-            accuracy_train = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
-            loss_valid = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
-            accuracy_valid = sess.run(accuracy, feed_dict={x: X_valid, y: Y_valid})
+            # Run the training operation and fetch metrics
+            _, loss_train, accuracy_train = sess.run(
+                [train_op, loss, accuracy], feed_dict={x: X_train, y: Y_train}
+                )
+            # Calculate validation metrics
+            loss_valid, accuracy_valid = sess.run(
+                [loss, accuracy], feed_dict={x: X_valid, y: Y_valid}
+                )
             if i % 100 == 0 or i == iterations or i == 0:
                 print("After {} iterations:".format(i))
                 print("\tTraining Cost: {}".format(loss_train))
