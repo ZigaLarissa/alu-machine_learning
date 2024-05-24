@@ -40,9 +40,9 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
     # Forward propagation.
     y_pred = forward_prop(x, layer_sizes, activations)
 
-    # Loss and accuracy.
-    loss = calculate_loss(y, y_pred)
+    # Accuracy and loss.
     accuracy = calculate_accuracy(y, y_pred)
+    loss = calculate_loss(y, y_pred)
 
     # Training operation.
     train_op = create_train_op(loss, alpha)
