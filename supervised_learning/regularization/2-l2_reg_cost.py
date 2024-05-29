@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+Function that calculates the cost of a neural network
+with L2 regularization
+using Tensorflow
+"""
 
 
 import tensorflow as tf
