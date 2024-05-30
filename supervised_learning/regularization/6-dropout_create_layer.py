@@ -15,7 +15,8 @@ def dropout_create_layer(prev, n, activation, keep_prob):
         Args:
             prev (tf.Tensor): Output tensor from the previous layer.
             n (int): Number of nodes in the new layer.
-            activation (callable): Activation function to apply to the new layer.
+            activation (callable): Activation function to apply
+            to the new layer.
             keep_prob (float): Probability of keeping a node during dropout.
 
         Returns:
