@@ -9,28 +9,28 @@ import tensorflow as tf
 
 
 def dropout_create_layer(prev, n, activation, keep_prob):
-    """
-    Creates a TensorFlow layer with dropout regularization.
+   """
+   Creates a new layer in a neural network with dropout regularization.
 
-    Parameters:
-    prev -- tensor containing the output of the previous layer
-    n -- number of nodes the new layer should contain
-    activation -- activation function that should be used on the layer
-    keep_prob -- probability that a node will be kept
+   Args:
+       prev (tf.Tensor): Output tensor from the previous layer.
+       n (int): Number of nodes in the new layer.
+       activation (callable): Activation function to apply to the new layer.
+       keep_prob (float): Probability of keeping a node during dropout.
 
-    Returns:
-    The output of the new layer
-    """
-    # Create a dense layer
-    dense_layer = tf.keras.layers.Dense(units=n, activation=activation)
+   Returns:
+       tf.Tensor: Output tensor of the new layer.
+   """
+   # Initialize weights and biases
+   init = tf.contrib.layers.xavier_initializer()
+   weights = tf.Variable(init(shape=[prev.get_shape().as_list()[-1], n]))
+   biases = tf.Variable(tf.zeros([n]))
 
-    # Apply dropout to the dense layer's output
-    dropout_layer = tf.keras.layers.Dropout(rate=1 - keep_prob)
+   # Apply dropout to the previous layer's output
+   dropout = tf.nn.dropout(prev, keep_prob)
 
-    # Get the output of the dense layer
-    dense_output = dense_layer(prev)
+   # Compute the output of the new layer
+   layer = tf.matmul(dropout, weights) + biases
+   layer = activation(layer)
 
-    # Apply dropout
-    output = dropout_layer(dense_output)
-
-    return output
+   return layer
