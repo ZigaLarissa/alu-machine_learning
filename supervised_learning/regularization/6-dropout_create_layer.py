@@ -25,17 +25,11 @@ def dropout_create_layer(prev, n, activation, keep_prob):
     init = tf.contrib.layers.variance_scaling_initializer(
       mode="FAN_AVG"
     )
-    weights = tf.Variable(
-        init([int(prev.get_shape()[1]), n]),
-        name="weights"
+    reg = tf.layers.Dropout(keep_prob)
+    layer = tf.layers.Dense(
+      n,
+      activation=activation,
+      kernel_initializer=init,
+      kernel_regularizer=reg
     )
-    biases = tf.Variable(
-        tf.zeros(n),
-        name="biases"
-    )
-    # Dropout layer
-    dropout = tf.nn.dropout(prev, keep_prob)
-    # Linear combination
-    z = tf.matmul(dropout, weights) + biases
-    # Activation function
-    return activation(z)
+    return layer(prev)
