@@ -22,17 +22,14 @@ def early_stopping(cost, opt_cost, threshold, patience, count):
         bool: Whether to stop gradient descent early.
         int: Updated count of how long the threshold has not been met.
     """
-    # If the current cost is lower than the optimal cost, update the optimal cost
-    if cost < opt_cost:
-        opt_cost = cost
-        count = 0
-    # If the current cost is not lower than the optimal cost, increment the count
+    if cost < opt_cost - threshold:
+        # Improvement in cost
+        return False, 0
     else:
+        # No significant improvement in cost
         count += 1
-
-    # Early stopping condition
-    if count >= patience and (cost - opt_cost) / opt_cost > threshold:
-        return True, count
-    else:
-        return False, count
-    
+        if count >= patience:
+            # Stop early if patience is exceeded
+            return True, count
+        else:
+            return False, count
