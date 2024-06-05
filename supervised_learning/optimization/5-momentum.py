@@ -3,7 +3,7 @@
 updates a variable using the gradient descent
 with momentum optimization algorithm
 """
-import tensorflow as tf
+import numpy as np
 
 
 def update_variables_momentum(alpha, beta1, var, grad, v):
@@ -21,8 +21,10 @@ def update_variables_momentum(alpha, beta1, var, grad, v):
     Returns:
         tf.Operation: The operation that updates var.
     """
-    # Compute the first moment
+    # Momentum update
     v_new = beta1 * v + (1 - beta1) * grad
-    # Update the variable
+
+    # Variable update
     var_new = var - alpha * v_new
+
     return var.assign(var_new), v.assign(v_new)
