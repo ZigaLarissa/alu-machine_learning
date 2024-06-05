@@ -49,6 +49,17 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
 
             m = X_train.shape[0]
             # Loop over batches
+
+            # print the metrics after each epoch
+            train_cost, train_accuracy = sess.run([loss, accuracy], feed_dict={x: X_train, y: Y_train})
+            valid_cost, valid_accuracy = sess.run([loss, accuracy], feed_dict={x: X_valid, y: Y_valid})
+            
+            print(f"After {epoch + 1} epochs:")
+            print(f"\tTraining Cost: {train_cost}")
+            print(f"\tTraining Accuracy: {train_accuracy}")
+            print(f"\tValidation Cost: {valid_cost}")
+            print(f"\tValidation Accuracy: {valid_accuracy}")
+
             for i in range(0, m, batch_size):
                 end = i + batch_size
                 X_batch = X_train[i:end]
@@ -63,15 +74,6 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                     print(f"\tStep {i}:")
                     print(f"\t\tCost: {step_cost}")
                     print(f"\t\tAccuracy: {step_accuracy}")
-
-            # print the metrics after each epoch
-            train_cost, train_accuracy = sess.run([loss, accuracy], feed_dict={x: X_train, y: Y_train})
-            valid_cost, valid_accuracy = sess.run([loss, accuracy], feed_dict={x: X_valid, y: Y_valid})
-            print(f"After {epoch + 1} epochs:")
-            print(f"\tTraining Cost: {train_cost}")
-            print(f"\tTraining Accuracy: {train_accuracy}")
-            print(f"\tValidation Cost: {valid_cost}")
-            print(f"\tValidation Accuracy: {valid_accuracy}")
 
         # Save the trained model
         saver.save(sess, save_path)
