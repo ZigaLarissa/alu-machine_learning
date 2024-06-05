@@ -6,15 +6,23 @@ with momentum optimization algorithm
 import tensorflow as tf
 
 
-def create_momentum_op(loss, alpha, beta1):
+def update_variables_momentum(alpha, beta1, var, grad, v):
     """
-    Creates the training operation for a neural network in tensorflow
-    using the gradient descent with momentum optimization algorithm.
+    Updates a variable using the gradient descent
+    with momentum optimization algorithm.
 
-    loss is the loss of the network
-    alpha is the learning rate
-    beta1 is the momentum weight
-    Returns: the momentum optimization operation
+    Args:
+        alpha (float): The learning rate.
+        beta1 (float): The momentum weight.
+        var (tf.Variable): The variable to be updated.
+        grad (tf.Tensor): The gradient of var.
+        v (tf.Variable): The previous first moment of var.
+
+    Returns:
+        tf.Operation: The operation that updates var.
     """
-    optimizer = tf.train.MomentumOptimizer(alpha, beta1)
-    return optimizer.minimize(loss)
+    # Compute the first moment
+    v_new = beta1 * v + (1 - beta1) * grad
+    # Update the variable
+    var_new = var - alpha * v_new
+    return var.assign(var_new), v.assign(v_new)
