@@ -64,40 +64,17 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                     print("\t\tAccuracy: {}".format(acc))
 
             # Calculate the cost and accuracy of the epoch
-            loss_train = sess.run(loss,
-                                  feed_dict={x: X_train, y: Y_train})
-            accuracy_train = sess.run(accuracy,
-                                      feed_dict={x: X_train, y: Y_train})
-            loss_valid = sess.run(loss,
-                                  feed_dict={x: X_valid, y: Y_valid})
-            accuracy_valid = sess.run(accuracy,
-                                      feed_dict={x: X_valid, y: Y_valid})
-            
+            loss_train = sess.run(loss, feed_dict={x: X_train, y: Y_train})
+            accuracy_train = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
+            loss_valid = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
+            accuracy_valid = sess.run(accuracy, feed_dict={x: X_valid, y: Y_valid})
 
-        # print metrics
-        print("After {} epochs:".format(epoch))
-        print("\tTraining Cost: {}".format(loss_train))
-        print("\tTraining Accuracy: {}".format(accuracy_train))
-        print("\tValidation Cost: {}".format(loss_valid))
-        print("\tValidation Accuracy: {}".format(accuracy_valid))
-                
-        epoch += 1
-        # Calculate the cost and accuracy of the epoch
-        loss_train = sess.run(loss,
-                                feed_dict={x: X_train, y: Y_train})
-        accuracy_train = sess.run(accuracy,
-                                    feed_dict={x: X_train, y: Y_train})
-        loss_valid = sess.run(loss,
-                                feed_dict={x: X_valid, y: Y_valid})
-        accuracy_valid = sess.run(accuracy,
-                                    feed_dict={x: X_valid, y: Y_valid})
-        
-        # print metrics
-        print("After {} iterations:".format(i))
-        print("\tTraining Cost: {}".format(loss_train))
-        print("\tTraining Accuracy: {}".format(accuracy_train))
-        print("\tValidation Cost: {}".format(loss_valid))
-        print("\tValidation Accuracy: {}".format(accuracy_valid))
-        
+            # print metrics
+            print("After {} epochs:".format(epoch))
+            print("\tTraining Cost: {}".format(loss_train))
+            print("\tTraining Accuracy: {}".format(accuracy_train))
+            print("\tValidation Cost: {}".format(loss_valid))
+            print("\tValidation Accuracy: {}".format(accuracy_valid))
+
         saver.save(sess, save_path)
         return save_path
