@@ -30,8 +30,10 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
     returns:
         the path where the model was saved
     """
+    saver = tf.train.import_meta_graph(load_path + '.meta')
+    init = tf.global_variables_initializer()
     with tf.Session() as sess:
-        saver = tf.train.import_meta_graph(load_path + '.meta')
+        sess.run(init)
         saver.restore(sess, load_path)
 
         # Retrieve the necessary tensors and operations from the graph
