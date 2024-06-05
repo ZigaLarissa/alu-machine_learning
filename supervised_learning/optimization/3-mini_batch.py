@@ -11,24 +11,26 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                      epochs=5, load_path="/tmp/model.ckpt", 
                      save_path="/tmp/model.ckpt"):
     """
-    Trains a loaded neural network model using mini-batch gradient descent.
+    trains a loaded nn model using mini batch
+    gradient descent
 
-    Args:
-        X_train (np.ndarray): Training data of shape (m, 784).
-        Y_train (np.ndarray): One-hot training labels of shape (m, 10).
-        X_valid (np.ndarray): Validation data of shape (m, 784).
-        Y_valid (np.ndarray): One-hot validation labels of shape (m, 10).
-        batch_size (int): Number of data points in a batch.
-        epochs (int): Number of times the training should pass through the whole dataset.
-        load_path (str): Path from which to load the model.
-        save_path (str): Path to where the model should be saved after training.
+    args:
+        X_train: np.ndarray (m, 784) containing the training data
+        m: number of data points
+        784: number of features
+        Y_train: np.ndarray (m, 10) containing the training labels
+        10: number of classes
+        X_valid: np.ndarray (m, 784) containing the validation data
+        Y_valid: np.ndarray (m, 10) containing the validation labels
+        batch_size: number of data points in a batch
+        epochs: number of times the training should pass through the whole dataset
+        load_path: path from which to load the model
+        save_path: path to save the model
 
-    Returns:
-        str: Path where the model was saved.
+    returns:
+        the path where the model was saved
     """
-    # Start a TensorFlow session
     with tf.Session() as sess:
-        # Load the model
         saver = tf.train.import_meta_graph(load_path + '.meta')
         saver.restore(sess, load_path)
 
@@ -42,6 +44,16 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
 
         m = X_train.shape[0]  # Number of training examples
         step_number = 0
+
+        # Evaluate and print initial metrics (epoch 0)
+        train_cost, train_accuracy = sess.run([loss, accuracy], feed_dict={x: X_train, y: Y_train})
+        valid_cost, valid_accuracy = sess.run([loss, accuracy], feed_dict={x: X_valid, y: Y_valid})
+        
+        print(f"After 0 epochs:")
+        print(f"\tTraining Cost: {train_cost}")
+        print(f"\tTraining Accuracy: {train_accuracy}")
+        print(f"\tValidation Cost: {valid_cost}")
+        print(f"\tValidation Accuracy: {valid_accuracy}")
 
         # Loop over epochs
         for epoch in range(epochs):
