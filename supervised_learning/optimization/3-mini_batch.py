@@ -48,34 +48,56 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             X_train, Y_train = shuffle_data(X_train, Y_train)
 
             m = X_train.shape[0]
+
             # Loop over batches
-
-            # print the metrics after each epoch
-            train_cost, train_accuracy = sess.run([loss, accuracy], feed_dict={x: X_train, y: Y_train})
-            valid_cost, valid_accuracy = sess.run([loss, accuracy], feed_dict={x: X_valid, y: Y_valid})
-            
-            print(f"After {epoch + 1} epochs:")
-            print(f"\tTraining Cost: {train_cost}")
-            print(f"\tTraining Accuracy: {train_accuracy}")
-            print(f"\tValidation Cost: {valid_cost}")
-            print(f"\tValidation Accuracy: {valid_accuracy}")
-
             for i in range(0, m, batch_size):
-                end = i + batch_size
-                X_batch = X_train[i:end]
-                Y_batch = Y_train[i:end]
-
-                # Train the model on the current batch
+                X_batch = X_train[i:i + batch_size]
+                Y_batch = Y_train[i:i + batch_size]
                 sess.run(train_op, feed_dict={x: X_batch, y: Y_batch})
 
-                # Print step metrics every 100 steps
-                if i % 100 == 0:
-                    step_cost, step_accuracy = sess.run([loss, accuracy], feed_dict={x: X_batch, y: Y_batch})
-                    print(f"\tStep {i}:")
-                    print(f"\t\tCost: {step_cost}")
-                    print(f"\t\tAccuracy: {step_accuracy}")
+                # Print the cost and accuracy of the batch
+                if i % 100 is 0:
+                    cost = sess.run(loss, feed_dict={x: X_batch, y: Y_batch})
+                    acc = sess.run(accuracy, feed_dict={x: X_batch, y: Y_batch})
+                    print("\tStep {}:".format(i))
+                    print("\t\tCost: {}".format(cost))
+                    print("\t\tAccuracy: {}".format(acc))
 
-        # Save the trained model
+            # Calculate the cost and accuracy of the epoch
+            loss_train = sess.run(loss,
+                                  feed_dict={x: X_train, y: Y_train})
+            accuracy_train = sess.run(accuracy,
+                                      feed_dict={x: X_train, y: Y_train})
+            loss_valid = sess.run(loss,
+                                  feed_dict={x: X_valid, y: Y_valid})
+            accuracy_valid = sess.run(accuracy,
+                                      feed_dict={x: X_valid, y: Y_valid})
+            
+
+        # print metrics
+        print("After {} epochs:".format(epoch))
+        print("\tTraining Cost: {}".format(loss_train))
+        print("\tTraining Accuracy: {}".format(accuracy_train))
+        print("\tValidation Cost: {}".format(loss_valid))
+        print("\tValidation Accuracy: {}".format(accuracy_valid))
+                
+        epoch += 1
+        # Calculate the cost and accuracy of the epoch
+        loss_train = sess.run(loss,
+                                feed_dict={x: X_train, y: Y_train})
+        accuracy_train = sess.run(accuracy,
+                                    feed_dict={x: X_train, y: Y_train})
+        loss_valid = sess.run(loss,
+                                feed_dict={x: X_valid, y: Y_valid})
+        accuracy_valid = sess.run(accuracy,
+                                    feed_dict={x: X_valid, y: Y_valid})
+        
+        # print metrics
+        print("After {} iterations:".format(i))
+        print("\tTraining Cost: {}".format(loss_train))
+        print("\tTraining Accuracy: {}".format(accuracy_train))
+        print("\tValidation Cost: {}".format(loss_valid))
+        print("\tValidation Accuracy: {}".format(accuracy_valid))
+        
         saver.save(sess, save_path)
-
-    return save_path
+        return save_path
