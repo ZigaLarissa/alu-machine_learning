@@ -76,5 +76,5 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             print("\tValidation Cost: {}".format(loss_valid))
             print("\tValidation Accuracy: {}".format(accuracy_valid))
 
-        saver.save(sess, save_path)
-        return save_path
+            saver.save(sess, save_path)
+            return save_path
