@@ -30,10 +30,8 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
     returns:
         the path where the model was saved
     """
-    saver = tf.train.import_meta_graph(load_path + '.meta')
-    init = tf.global_variables_initializer()
     with tf.Session() as sess:
-        sess.run(init)
+        saver = tf.train.import_meta_graph(load_path + '.meta')
         saver.restore(sess, load_path)
 
         # Retrieve the necessary tensors and operations from the graph
@@ -78,5 +76,4 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             print("\tValidation Cost: {}".format(loss_valid))
             print("\tValidation Accuracy: {}".format(accuracy_valid))
 
-            saver.save(sess, save_path)
-            return save_path
+            return saver.save(sess, save_path)
