@@ -23,9 +23,15 @@ def update_variables_Adam(alpha, beta1, beta2, epsilon, var, grad, v, s, t):
     returns:
         the updated variable, the new first moment, and the new second moment
     """
+    # First moment
     s = beta2 * s + (1 - beta2) * grad ** 2
+    # Second moment
     v = beta1 * v + (1 - beta1) * grad
+    # Bias correction
     v_corrected = v / (1 - beta1 ** t)
+    # Bias correction
     s_corrected = s / (1 - beta2 ** t)
+    # Update variable
     var = var - alpha * v_corrected / (np.sqrt(s_corrected) + epsilon)
+    # Return updated variable, new first moment, and new second moment
     return var, v, s
