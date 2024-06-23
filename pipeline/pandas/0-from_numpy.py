@@ -18,4 +18,6 @@ def from_numpy(array):
     Returns:
         pd.DataFrame: The newly created DataFrame.
     """
-    return pd.DataFrame(array)
+    num_columns = array.shape[1]
+    columns = [chr(65 + i) for i in range(num_columns)]
+    return pd.DataFrame(array, columns=columns)
