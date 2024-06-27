@@ -12,23 +12,20 @@ def sentientPlanets():
     planets of all sentient species.
     """
     url = "https://swapi-api.alx-tools.com/api/species/"
-    sentient_planets = []
-    sentient_classifications = ["sentient"]
-
-    while url:
-        response = requests.get(url)
+    planets = []
+    
+    while species_url:
+        response = requests.get(species_url)
         data = response.json()
+        
+        for species in data['results']:
+            if species['designation'] == 'sentient' or species['classification'] == 'sentient':
+                homeworld_url = species['homeworld']
+                if homeworld_url:
+                    homeworld_response = requests.get(homeworld_url)
+                    homeworld_data = homeworld_response.json()
+                    planets.append(homeworld_data['name'])
+        
+        species_url = data['next']  # Move to the next page
 
-        for species in data["results"]:
-            if (
-                species["classification"].lower() in sentient_classifications
-                and species["homeworld"]
-            ):
-                homeworld_url = species["homeworld"]
-                homeworld_response = requests.get(homeworld_url)
-                homeworld_data = homeworld_response.json()
-                sentient_planets.append(homeworld_data["name"])
-
-        url = data["next"]
-
-    return sentient_planets
+    return planets
