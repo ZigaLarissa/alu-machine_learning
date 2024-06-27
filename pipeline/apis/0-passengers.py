@@ -13,13 +13,18 @@ def availableShips(passengerCount):
     """
     url = "https://swapi-api.alx-tools.com/api/starships/"
     ships = []
-    while url is not None:
+    while url:
         response = requests.get(url)
         data = response.json()
         for ship in data['results']:
-            passengers = ship['passengers']
-            if passengers.isnumeric():
-                if int(passengers) >= passengerCount:
-                    ships.append(ship['name'])
-        url = data['next']
+            if (
+                ship["passengers"] != "n/a"
+                and ship["passengers"] != "unknown"
+                and ship["passengers"] != "0"
+                and ship["passengers"] != "none"
+            ):
+                ship["passengers"] = ship["passengers"].replace(",", "")
+                if int(ship["passengers"]) >= passengerCount:
+                    ships.append(ship["name"])
+        url = data["next"]
     return ships
