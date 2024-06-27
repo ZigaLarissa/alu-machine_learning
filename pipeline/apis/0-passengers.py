@@ -8,18 +8,18 @@ import requests
 
 def availableShips(passengerCount):
     """
-    - The method takes an integer as a parameter
-    and returns a list of ships that can hold that many passengers
-    - add the pagination
-    - If no ship available, return an empty list.
+    returns the list of ships that can hold a given number of passengers
+    If the list is empty, the method should return an empty list
     """
-    url = "https://swapi-api.hbtn.io/api/starships/"
+    url = "https://swapi-api.alx-tools.com/api/starships/"
     ships = []
     while url is not None:
         response = requests.get(url)
         data = response.json()
-        for ship in data["results"]:
-            if int(ship["passengers"]) >= passengerCount:
-                ships.append(ship["name"])
-        url = data["next"]
+        for ship in data['results']:
+            passengers = ship['passengers']
+            if passengers.isnumeric():
+                if int(passengers) >= passengerCount:
+                    ships.append(ship['name'])
+        url = data['next']
     return ships
