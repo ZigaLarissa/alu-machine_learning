@@ -27,6 +27,16 @@ def sentientPlanets():
                 home_data = home_response.json()
                 home_name = home_data['name']
                 home_names.append(home_name)
+        
+        for species in data['results']:
+            if (species['destination'] == 'sentient' 
+            and species['homeworld'] != 'unknown' 
+            and species['homeworld'] != 'null'):
+                home_url = (species['homeworld'])
+                home_response = requests.get(home_url)
+                home_data = home_response.json()
+                home_name = home_data['name']
+                home_names.append(home_name)
 
         url = data['next']
 
