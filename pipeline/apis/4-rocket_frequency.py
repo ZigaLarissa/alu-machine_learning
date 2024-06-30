@@ -1,42 +1,33 @@
 #!/usr/bin/env python3
-"""
-    script that displays the number of launches per rocket.
-"""
+'''
+Get rocket names from launch details
+'''
 
 
 import requests
-from collections import Counter
+from collections import defaultdict
 
 
-def get_launch_count_by_rocket():
-    """
-    Get all launches
-    """
-    url = "https://api.spacexdata.com/v4/launches"
+def get_rocket_name():
+    '''return rockets with their num of launches'''
+    url = 'https://api.spacexdata.com/v4/launches'
     response = requests.get(url)
-    launches = response.json()
+    rockets = defaultdict(int)
+    for launch in response.json():
+        rockets[launch['rocket']] += 1
 
-    # Count the launches per rocket ID
-    rocket_counts = Counter(launch["rocket"] for launch in launches)
+    names = defaultdict(str)
 
-    # Get rocket names
-    url = "https://api.spacexdata.com/v4/rockets"
-    response = requests.get(url)
-    rockets = response.json()
-    rocket_names = {rocket["id"]: rocket["name"] for rocket in rockets}
+    for rocket in rockets:
+        url = 'https://api.spacexdata.com/v4/rockets/{}'.format(rocket)
+        response = requests.get(url)
+        names[rocket] = response.json().get('name', 'Unknown rocket')
 
-    # Create a list of (rocket_name, count) and sort it
-    rocket_launch_counts = [
-        (
-            rocket_names[rocket_id], count
-        ) for rocket_id, count in rocket_counts.items()
-    ]
-    rocket_launch_counts.sort(key=lambda x: (-x[1], x[0]))
-
-    return rocket_launch_counts
+    # Print rocket names with the number of launches in decreasing order
+    sorted_rockets = sorted(rockets.items(), key=lambda x: x[1], reverse=True)
+    for rocket, count in sorted_rockets:
+        print('{}: {}'.format(names.get(rocket, 'Unknown rocket'), count))
 
 
-if __name__ == "__main__":
-    rocket_launch_counts = get_launch_count_by_rocket()
-    for rocket_name, count in rocket_launch_counts:
-        print("{}: {}".format(rocket_name, count))
+if __name__ == '__main__':
+    get_rocket_name()
