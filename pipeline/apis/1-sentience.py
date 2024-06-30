@@ -1,43 +1,29 @@
 #!/usr/bin/env python3
 """
-By using the Swapi API, create a method that returns
-the list of names of the home planets of all sentient species.
+    Return the list of names of the home
+    planets of all sentient species.
 """
+
 import requests
 
 
 def sentientPlanets():
-    """
-    Returns the list of names of the home
+    '''
+    Return the list of names of the home
     planets of all sentient species.
-    """
-    url = 'https://swapi-api.alx-tools.com/api/species/'
-    home_names = []
-
+    '''
+    url = "https://swapi-api.hbtn.io/api/species/?format=json"
+    speciesList = []
     while url:
-        response = requests.get(url)
-        data = response.json()
-
-        for species in data['results']:
-            if (species['classification'] == 'sentient' 
-            and species['homeworld'] != 'unknown' 
-            and species['homeworld'] != 'null'):
-                home_url = (species['homeworld'])
-                home_response = requests.get(home_url)
-                home_data = home_response.json()
-                home_name = home_data['name']
-                home_names.append(home_name)
-        
-        for species in data['results']:
-            if (species['destination'] == 'sentient' 
-            and species['homeworld'] != 'unknown' 
-            and species['homeworld'] != 'null'):
-                home_url = (species['homeworld'])
-                home_response = requests.get(home_url)
-                home_data = home_response.json()
-                home_name = home_data['name']
-                home_names.append(home_name)
-
-        url = data['next']
-
-    return home_names
+        results = requests.get(url).json()
+        speciesList += results.get('results')
+        url = results.get('next')
+    homePlanets = []
+    for species in speciesList:
+        if species.get('designation') == 'sentient' or \
+           species.get('classification') == 'sentient':
+            url = species.get('homeworld')
+            if url:
+                planet = requests.get(url).json()
+                homePlanets.append(planet.get('name'))
+    return homePlanets
