@@ -2,8 +2,6 @@
 '''
     Script that displays the upcoming launch
 '''
-
-
 import requests
 import datetime
 
