@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """
-By using the GitHub API, write a script that prints
-the location of a specific user:
+    script that prints the location of a specific user:
 """
+
+
 import requests
+import time
+from datetime import datetime
 
 
 def main(url):
