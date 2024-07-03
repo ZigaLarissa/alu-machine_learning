@@ -9,7 +9,7 @@
 -- Your script can be executed on any database
 
 SELECT
-    band_name
+    band_name,
     CASE
         WHEN split is NULL THEN 2020 - formed
         ELSE split - formed
