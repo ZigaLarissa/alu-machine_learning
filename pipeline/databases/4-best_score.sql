@@ -7,4 +7,4 @@
 SELECT score, name
 FROM second_table
 WHERE score >= 10
-ORDER_BY score DESC;
+ORDER BY score DESC;
