@@ -3,4 +3,4 @@
 -- for example: mysql -u root -p
 -- once logged in, run the following command to create the database
 
-CREATE DATABASE db_0;
+CREATE DATABASE IF NOT EXISTS db_0;
