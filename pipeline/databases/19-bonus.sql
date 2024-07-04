@@ -17,6 +17,8 @@ CREATE PROCEDURE AddBonus (
 )
 BEGIN
     DECLARE project_id INT;
+    DECLARE project_exists INT; -- 0 if the project does not exist, 1 otherwise
+
 
     -- Check if the project exists
     SELECT id INTO project_id
@@ -25,7 +27,7 @@ BEGIN
 
     -- If the project does not exist, create it
     IF project_id IS NULL THEN
-        INSERT INTO projects(name)
+        INSERT INTO projects (name)
         VALUES(project_name);
         SET project_id = LAST_INSERT_ID();
     END IF;
