@@ -16,8 +16,8 @@ CREATE PROCEDURE AddBonus (
     IN score INT
 )
 BEGIN
-    DECLARE project_id INT;
-    DECLARE project_exists INT; -- 0 if the project does not exist, 1 otherwise
+    DECLARE project_id INT DEFAULT NULL;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET project_id = NULL;
 
 
     -- Check if the project exists
