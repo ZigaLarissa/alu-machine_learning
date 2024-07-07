@@ -22,7 +22,7 @@ BEGIN
     SELECT AVG(score)
     INTO avg_score
     FROM corrections
-    WHERE user_id = p_user_id;
+    WHERE user_id = user_id;
 
     -- Update the user
     UPDATE users
