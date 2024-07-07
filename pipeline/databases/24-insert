@@ -3,11 +3,14 @@
 // The document must have one attribute name with value “Holberton school”
 // The database name will be passed as option of mongo command
 
-// Get the database name from the command line arguments
-const dbName = process.argv[3];
+# Check if a database name is provided as an argument
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <database_name>"
+    exit 1
+fi
 
-// Switch to the specified db
-const db = connect("localhost:27017/" + dbName);
+# Get the database name from the first argument
+DB_NAME=$1
 
-// Insert the document into the collection "school"
-db.school.insertOne({ name: "Holberton school" });
+# Run the mongo command to insert the document
+mongo "$DB_NAME" --eval 'db.school.insertOne({ name: "Holberton school" })'
