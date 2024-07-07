@@ -3,14 +3,4 @@
 // The document must have one attribute name with value “Holberton school”
 // The database name will be passed as option of mongo command
 
-# Check if a database name is provided as an argument
-if [ $# -eq 0 ]; then
-    echo "Usage: $0 <database_name>"
-    exit 1
-fi
-
-# Get the database name from the first argument
-DB_NAME=$1
-
-# Run the mongo command to insert the document
-mongo "$DB_NAME" --eval 'db.school.insertOne({ name: "Holberton school" })'
+--eval 'db.school.insertOne({ name: "Holberton school" })
