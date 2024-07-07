@@ -25,8 +25,8 @@ BEGIN
     WHERE user_id = user_id;
 
     -- Update the user
-    UPDATE users
-    SET average_score = avg_score
+    INSERT INTO users (average_score)
+    VALUES (avg_score)
     WHERE id = p_user_id;
 
 END //
