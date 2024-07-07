@@ -16,7 +16,7 @@ CREATE PROCEDURE ComputeAverageScoreForUser (
 )
 
 BEGIN
-    DECLARE average_score FLOAT;
+    DECLARE avg_score FLOAT;
 
     -- Compute the average score
     SELECT AVG(score)
