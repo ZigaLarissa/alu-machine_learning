@@ -1,7 +1,7 @@
 // Write a script that inserts a document in the collection school
 
 db.school.insertOne({
-    "_id": ObjectId("668c5e58a95488967cddbfbf"),
+    "_id": ObjectId("1"),
     "name": "Holberton school"
   });
   
