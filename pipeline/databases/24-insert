@@ -1,3 +1,9 @@
 // Write a script that inserts a document in the collection school
 
-db.school.insertOne({ name: "Holberton school" })
+{
+  "_id"; {
+    "$oid"; "668c5e58a95488967cddbfbf"
+  }
+    "name"; "Holberton school" 
+}
+// The database name will be passed as option of mongo command
