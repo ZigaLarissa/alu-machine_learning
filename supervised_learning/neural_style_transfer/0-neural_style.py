@@ -28,8 +28,8 @@ class NST:
         if not isinstance(beta, (int, float)) or beta < 0:
             raise TypeError("beta must be a non-negative number")
 
-        # Set TensorFlow to execute eagerly
-        tf.config.experimental_run_functions_eagerly(True)
+        # Sets Tensorflow to execute eagerly
+        tf.enable_eager_execution()
 
         # Set instance attributes
         self.style_image = self.scale_image(style_image)
@@ -38,31 +38,29 @@ class NST:
         self.beta = beta
 
 
-    # Static method to scale image
+    # Static method to scale an image
     @staticmethod
-    def scale_image(image):
+    def scale_image(self, image):
         # Check if image is not a np.ndarray with the shape (h, w, 3)
         if not isinstance(image, np.ndarray) or len(image.shape) != 3 or image.shape[2] != 3:
             raise TypeError("image must be a numpy.ndarray with shape (h, w, 3)")
         
-        # Get the dimensions of the image
+        # Check if image is not already between 0 and 1
+        if np.max(image) > 1:
+            image = image / 255
+
+        # Check if image is larger than 512 pixels in the y axis
         h, w, _ = image.shape
+        if h > 512:
+            h = 512
+            w = int(w * (512 / h))
         
-        # Calculate the scale factor
-        if h > w:
-            new_h = 512
-            new_w = int(w * (512 / h))
-        else:
-            new_w = 512
-            new_h = int(h * (512 / w))
+        # Check if image is larger than 512 pixels in the x axis
+        if w > 512:
+            w = 512
+            h = int(h * (512 / w))
         
-        # Resize the image using bicubic interpolation
-        image = tf.image.resize(image, (new_h, new_w), method='bicubic')
-        
-        # Rescale pixel values to be between 0 and 1
-        image = image / 255.0
-        
-        # Add a new batch dimension
-        image = tf.expand_dims(image, axis=0)
-        
+        # Resize the image with inter-cubic interpolation
+        image = tf.image.resize_bicubic(tf.expand_dims(image, 0), (h, w))
+        image = image / 255
         return image
