@@ -44,22 +44,24 @@ class NST:
         if not isinstance(image, np.ndarray) or len(image.shape) != 3 or image.shape[2] != 3:
             raise TypeError("image must be a numpy.ndarray with shape (h, w, 3)")
         
-        # Check if image is not already between 0 and 1
-        if np.max(image) > 1:
-            image = image / 255
-
-        # Check if image is larger than 512 pixels in the y axis
+        # Get the dimensions of the image
         h, w, _ = image.shape
-        if h > 512:
-            h = 512
-            w = int(w * (512 / h))
         
-        # Check if image is larger than 512 pixels in the x axis
-        if w > 512:
-            w = 512
-            h = int(h * (512 / w))
+        # Calculate the scale factor
+        if h > w:
+            new_h = 512
+            new_w = int(w * (512 / h))
+        else:
+            new_w = 512
+            new_h = int(h * (512 / w))
         
-        # Resize the image with inter-cubic interpolation
-        image = tf.image.resize_bicubic(tf.expand_dims(image, 0), (h, w))
-        image = image / 255
+        # Resize the image using bicubic interpolation
+        image = tf.image.resize(image, (new_h, new_w), method='bicubic')
+        
+        # Rescale pixel values to be between 0 and 1
+        image = image / 255.0
+        
+        # Add a new batch dimension
+        image = tf.expand_dims(image, axis=0)
+        
         return image
