@@ -63,4 +63,4 @@ class NST:
         # Add a new batch dimension
         image = tf.expand_dims(image, axis=0)
         
-        return image(1, new_h, new_w, 3)
+        return image
