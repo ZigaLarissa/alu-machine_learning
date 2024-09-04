@@ -11,11 +11,11 @@ class NST:
     # Constructor method
     def __init__(self, style_image, content_image, alpha=1e4, beta=1):
         # Check if style_image is a numpy array with shape (h, w, 3)
-        if not isinstance(style_image, np.ndarray) or style_image.shape[-1] != 3:
+        if not isinstance(style_image, np.ndarray) or style_image.ndim != 3 or style_image.shape[2] != 3:
             raise TypeError('style_image must be a numpy.ndarray with shape (h, w, 3)')
         
         # Check if content_image is a numpy array with shape (h, w, 3)
-        if not isinstance(content_image, np.ndarray) or content_image.shape[-1] != 3:
+        if not isinstance(content_image, np.ndarray) or content_image.ndim != 3 or content_image.shape[2] != 3:
             raise TypeError('content_image must be a numpy.ndarray with shape (h, w, 3)')
         
         # Check if alpha is a non-negative number
@@ -39,7 +39,7 @@ class NST:
     @staticmethod
     def scale_image(image):
         # Check if image is a numpy array with shape (h, w, 3)
-        if not isinstance(image, np.ndarray) or image.shape[-1] != 3:
+        if not isinstance(image, np.ndarray) or image.ndim != 3 or image.shape[-1] != 3:
             raise TypeError('image must be a numpy.ndarray with shape (h, w, 3)')
         
         # Get the dimensions of the image
