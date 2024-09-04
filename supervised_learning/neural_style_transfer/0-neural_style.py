@@ -54,6 +54,7 @@ class NST:
             new_h = int(h * (512 / w))
         
         # Resize the image using bicubic interpolation
+        image = tf.convert_to_tensor(image, dtype=tf.float32)
         image = tf.image.resize(image, (new_h, new_w), method='bicubic')
         
         # Rescale pixel values to be between 0 and 1
@@ -62,4 +63,4 @@ class NST:
         # Add a new batch dimension
         image = tf.expand_dims(image, axis=0)
         
-        return image
+        return image(1, new_h, new_w, 3)
