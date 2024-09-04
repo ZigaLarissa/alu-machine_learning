@@ -26,8 +26,8 @@ class NST:
         if not isinstance(beta, (int, float)) or beta < 0:
             raise TypeError('beta must be a non-negative number')
 
-        # Set TensorFlow to execute eagerly
-        tf.config.experimental_run_functions_eagerly(True)
+        # # Set TensorFlow to execute eagerly
+        # tf.config.experimental_run_functions_eagerly(True)
 
         # Set the instance attributes
         self.style_image = self.scale_image(style_image)
