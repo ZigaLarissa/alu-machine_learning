@@ -1,20 +1,60 @@
 #!/usr/bin/env python3
+"""
+Defines class NST that performs tasks for neural style transfer
+"""
+
 
 import numpy as np
 import tensorflow as tf
 
+
 class NST:
-    style_layers = ['block1_conv1', 'block2_conv1', 'block3_conv1', 'block4_conv1', 'block5_conv1']
+    """
+    Performs tasks for Neural Style Transfer
+
+    includes:
+        - constructor
+        - scale_image
+    """
+    style_layers = ['block1_conv1', 'block2_conv1', 'block3_conv1',
+                    'block4_conv1', 'block5_conv1']
     content_layer = 'block5_conv2'
 
     def __init__(self, style_image, content_image, alpha=1e4, beta=1):
-        if not isinstance(style_image, np.ndarray) or style_image.shape[-1] != 3 or len(style_image.shape) != 3:
-            raise TypeError("style_image must be a numpy.ndarray with shape (h, w, 3)")
-        if not isinstance(content_image, np.ndarray) or content_image.shape[-1] != 3 or len(content_image.shape) != 3:
-            raise TypeError("content_image must be a numpy.ndarray with shape (h, w, 3)")
-        if not isinstance(alpha, (int, float)) or alpha < 0:
+        """
+        Class constructor for Neural Style Transfer class
+
+        parameters:
+            style_image [numpy.ndarray with shape (h, w, 3)]:
+                image used as style reference
+            content_image [numpy.ndarray with shape (h, w, 3)]:
+                image used as content reference
+            alpha [float]: weight for content cost
+            beta [float]: weight for style cost
+
+        Raises TypeError if input are in incorrect format
+        Sets TensorFlow to execute eagerly
+        Sets instance attributes
+        """
+        if type(style_image) is not np.ndarray or \
+           len(style_image.shape) != 3:
+            raise TypeError(
+                "style_image must be a numpy.ndarray with shape (h, w, 3)")
+        if type(content_image) is not np.ndarray or \
+           len(content_image.shape) != 3:
+            raise TypeError(
+                "content_image must be a numpy.ndarray with shape (h, w, 3)")
+        style_h, style_w, style_c = style_image.shape
+        content_h, content_w, content_c = content_image.shape
+        if style_h <= 0 or style_w <= 0 or style_c != 3:
+            raise TypeError(
+                "style_image must be a numpy.ndarray with shape (h, w, 3)")
+        if content_h <= 0 or content_w <= 0 or content_c != 3:
+            raise TypeError(
+                "content_image must be a numpy.ndarray with shape (h, w, 3)")
+        if (type(alpha) is not float and type(alpha) is not int) or alpha < 0:
             raise TypeError("alpha must be a non-negative number")
-        if not isinstance(beta, (int, float)) or beta < 0:
+        if (type(beta) is not float and type(beta) is not int) or beta < 0:
             raise TypeError("beta must be a non-negative number")
 
         tf.enable_eager_execution()
@@ -26,21 +66,39 @@ class NST:
 
     @staticmethod
     def scale_image(image):
-        if not isinstance(image, np.ndarray) or image.shape[-1] != 3 or len(image.shape) != 3:
-            raise TypeError("image must be a numpy.ndarray with shape (h, w, 3)")
+        """
+        Rescales an image such that its pixels values are between 0 and 1
+            and its largest side is 512 pixels
 
-        h, w, _ = image.shape
-        max_dim = max(h, w)
-        scale = 512 / max_dim
-        new_h = int(h * scale)
-        new_w = int(w * scale)
+        parameters:
+            image [numpy.ndarray of shape (h, w, 3)]:
+                 image to be rescaled
 
-        image = tf.image.resize(image, (new_h, new_w), method='bicubic')
-        image = image / 255.0
+        Scaled image should be tf.tensor with shape (1, h_new, w_new, 3)
+            where max(h_new, w_new) is 512 and
+            min(h_new, w_new) is scaled proportionately
+        Image should be resized using bicubic interpolation.
+        Image's pixels should be rescaled from range [0, 255] to [0, 1].
 
-        # Clip the values to the [0.0, 1.0] range to prevent out-of-bounds values
-        image = tf.clip_by_value(image, 0.0, 1.0)
+        returns:
+            the scaled image
+        """
+        if type(image) is not np.ndarray or len(image.shape) != 3:
+            raise TypeError(
+                "image must be a numpy.ndarray with shape (h, w, 3)")
+        h, w, c = image.shape
+        if h <= 0 or w <= 0 or c != 3:
+            raise TypeError(
+                "image must be a numpy.ndarray with shape (h, w, 3)")
+        if h > w:
+            h_new = 512
+            w_new = int(w * (512 / h))
+        else:
+            w_new = 512
+            h_new = int(h * (512 / w))
 
-        image = tf.expand_dims(image, axis=0)
-
-        return image
+        resized = tf.image.resize_bicubic(np.expand_dims(image, axis=0),
+                                          size=(h_new, w_new))
+        rescaled = resized / 255
+        rescaled = tf.clip_by_value(rescaled, 0, 1)
+        return (rescaled)
