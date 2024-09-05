@@ -13,7 +13,7 @@ class NST:
         if not isinstance(content_image, np.ndarray) or content_image.shape[-1] != 3:
             raise TypeError("content_image must be a numpy.ndarray with shape (h, w, 3)")
         if not isinstance(alpha, (int, float)) or alpha < 0:
-            raise TypeError("alpha must be a non-negative number waguam")
+            raise TypeError("alpha must be a non-negative number")
         if not isinstance(beta, (int, float)) or beta < 0:
             raise TypeError("beta must be a non-negative number")
 
