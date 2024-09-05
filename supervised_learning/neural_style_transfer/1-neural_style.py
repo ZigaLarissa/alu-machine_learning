@@ -3,7 +3,6 @@
 Defines class NST that performs tasks for neural style transfer
 """
 
-
 import numpy as np
 import tensorflow as tf
 
@@ -102,7 +101,6 @@ class NST:
         rescaled = resized / 255
         rescaled = tf.clip_by_value(rescaled, 0, 1)
         return (rescaled)
-
 
     def load_model(self):
         '''

@@ -3,7 +3,6 @@
 Defines class NST that performs tasks for neural style transfer
 """
 
-
 import numpy as np
 import tensorflow as tf
 
@@ -103,7 +102,6 @@ class NST:
         rescaled = tf.clip_by_value(rescaled, 0, 1)
         return (rescaled)
 
-
     def load_model(self):
         '''
             creates the model used to calculate cost
@@ -138,8 +136,6 @@ class NST:
         model = tf.keras.models.Model(vgg.input, outputs)
         self.model = model
 
-
-
     @staticmethod
     def gram_matrix(input_layer):
         '''
@@ -168,7 +164,6 @@ class NST:
         gram /= tf.cast(product, tf.float32)
         return (gram)
 
-
     def generate_features(self):
         '''
             extracts the features used to calculate neural style cost
@@ -193,7 +188,6 @@ class NST:
         self.gram_style_features = gram_style_features
         self.content_feature = content_feature
 
-
     def layer_style_cost(self, style_output, gram_target):
         '''
             Calculates the style cost for a single layer
@@ -212,7 +206,6 @@ class NST:
         gram_style = self.gram_matrix(style_output)
         diff = tf.reduce_mean(tf.square(gram_style - gram_target))
         return diff
-
 
     def style_cost(self, style_outputs):
         '''
@@ -242,7 +235,6 @@ class NST:
             )
 
         return style_cost
-
 
     def content_cost(self, content_output):
         '''
