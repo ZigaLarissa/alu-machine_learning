@@ -275,7 +275,7 @@ class NST:
                 isinstance(content_output,
                            tf.Variable)) or content_output.shape != s:
             raise TypeError(
-                'content_output must be of rank {}'.format(len(s)))
+                'content_output must be a tensor of shape {}'.format(s))
 
         return tf.reduce_mean(
             tf.square(content_output - self.content_feature)
