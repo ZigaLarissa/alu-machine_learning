@@ -63,7 +63,8 @@ class NST:
         self.alpha = alpha
         self.beta = beta
 
-        self.load_model
+        self.load_model()
+        self.generated_features()
 
     @staticmethod
     def scale_image(image):
