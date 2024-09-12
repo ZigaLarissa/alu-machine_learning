@@ -7,7 +7,7 @@ class RNNCell:
     def __init__(self, i, h, o):
         """
         Initialize the RNNCell with random weights and zero biases.
-        
+
         Parameters:
         i -- dimensionality of the data
         h -- dimensionality of the hidden state
@@ -24,7 +24,7 @@ class RNNCell:
     def forward(self, h_prev, x_t):
         """
         Perform forward propagation for one time step.
-        
+
         Parameters:
         h_prev -- numpy.ndarray of shape (m, h), previous hidden state
         x_t -- numpy.ndarray of shape (m, i), input data for the cell
@@ -42,18 +42,19 @@ class RNNCell:
         # Compute the output of the cell
         y_linear = np.dot(h_next, self.Wy) + self.by
         y = self.softmax(y_linear)
-        
+
         return h_next, y
 
     def softmax(self, x):
         """
         Compute the softmax of the input array.
-        
+
         Parameters:
         x -- numpy.ndarray, input to softmax
-        
+
         Returns:
         Softmax output
         """
-        e_x = np.exp(x - np.max(x, axis=1, keepdims=True))  # Stability improvement
+        # Stability improvement
+        e_x = np.exp(x - np.max(x, axis=1, keepdims=True))
         return e_x / e_x.sum(axis=1, keepdims=True)
