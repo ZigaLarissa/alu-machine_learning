@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""This module contains the RNNCell class"""
 
 import numpy as np
 
@@ -28,17 +29,17 @@ class RNNCell:
         Parameters:
         h_prev -- numpy.ndarray of shape (m, h), previous hidden state
         x_t -- numpy.ndarray of shape (m, i), input data for the cell
-        
+
         Returns:
         h_next -- the next hidden state
         y -- the output of the cell
         """
         # Concatenate h_prev and x_t along axis 1 (features axis)
         concatenated = np.concatenate((h_prev, x_t), axis=1)
-        
+
         # Compute the next hidden state with tanh activation
         h_next = np.tanh(np.dot(concatenated, self.Wh) + self.bh)
-        
+
         # Compute the output of the cell
         y_linear = np.dot(h_next, self.Wy) + self.by
         y = self.softmax(y_linear)
