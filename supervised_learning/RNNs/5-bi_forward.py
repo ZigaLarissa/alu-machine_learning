@@ -7,6 +7,9 @@ import numpy as np
 
 
 class BidirectionalCell:
+    """
+    Represents a cell of a bidirectional RNN.
+    """
     def __init__(self, i, h, o):
         """
         Constructor for the BidirectionalCell class.
@@ -17,7 +20,7 @@ class BidirectionalCell:
             o (int): Dimensionality of the outputs.
         """
         # Weights and biases for the forward direction
-        self.Whf = np.random.normal(size=(i + h, h))  
+        self.Whf = np.random.normal(size=(i + h, h))
         self.bhf = np.zeros((1, h))
 
         # Weights and biases for the backward direction
