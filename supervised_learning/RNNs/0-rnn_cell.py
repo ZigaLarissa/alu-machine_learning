@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
-This module contains the RNNCell class initialised with
-random weights and zero biases.
+This module contains the RNNCell class.
 """
 
 import numpy as np
 
 
 class RNNCell:
+    """
+    Represents a cell of a simple RNN
+    """
     def __init__(self, i, h, o):
         """
         Initialize the RNNCell with random weights and zero biases.
