@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-This module contains the RNNCell class initialised.
+This module contains the RNNCell class initialised with
+random weights and zero biases.
 """
 
 import numpy as np
