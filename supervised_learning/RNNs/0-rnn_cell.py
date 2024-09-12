@@ -41,6 +41,19 @@ class RNNCell:
         
         # Compute the output of the cell
         y_linear = np.dot(h_next, self.Wy) + self.by
-        # y = self.softmax(y_linear)
+        y = self.softmax(y_linear)
         
-        return h_next, y_linear
+        return h_next, y
+
+    def softmax(self, x):
+        """
+        Compute the softmax of the input array.
+        
+        Parameters:
+        x -- numpy.ndarray, input to softmax
+        
+        Returns:
+        Softmax output
+        """
+        e_x = np.exp(x - np.max(x, axis=1, keepdims=True))  # Stability improvement
+        return e_x / e_x.sum(axis=1, keepdims=True)
