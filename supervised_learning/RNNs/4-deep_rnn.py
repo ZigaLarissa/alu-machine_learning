@@ -29,10 +29,10 @@ def deep_rnn(rnn_cells, X, h_0):
     for all time steps
     """
     l = len(rnn_cells)  # Number of layers
-    t, m, i = X.shape   # Time steps, batch size, input dimensionality
+    t, m, i = X.shape
 
     # Check dimensional consistency
-    if h_0.shape[0] != l:
+    if h_0.shape[0] != l or h_0.shape[1] != m or h_0.shape[2] != h:
         raise ValueError(
             "Initial hidden state h_0 should have the shape (l, m, h)"
             )
