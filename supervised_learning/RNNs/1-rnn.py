@@ -28,12 +28,12 @@ def rnn(rnn_cell, X, h_0):
     Y -- numpy.ndarray containing all outputs for every time step,
     shape (t, m, o)
     """
-    t, m, i = X.shape  
-    h = h_0.shape[1]   
+    t, m, i = X.shape
+    h = h_0.shape[1]
 
     # Initialize H to store hidden states for all time steps
     H = np.zeros((t + 1, m, h))
-    H[0] = h_0  
+    H[0] = h_0
 
     # Initialize an empty list to store the outputs
     Y = []
