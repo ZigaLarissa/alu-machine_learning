@@ -40,10 +40,9 @@ def deep_rnn(rnn_cells, X, h_0):
             h_prev_layer = h_prev[layer]
             h_next, y_next = rnn_cell.forward(h_prev_layer, x_t)
 
-
             x_t = h_next
             h_current.append(h_next)
-        
+
         # Store current hidden states
         H[step + 1] = np.array(h_current)
         Y.append(y_next)
