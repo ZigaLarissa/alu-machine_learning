@@ -42,8 +42,10 @@ class GRUCell:
         Performs forward propagation for one time step of the GRU cell.
 
         Parameters:
-        h_prev -- numpy.ndarray of shape (m, h), containing the previous hidden state
-        x_t -- numpy.ndarray of shape (m, i), containing the data input at time step t
+        h_prev -- numpy.ndarray of shape (m, h), containing the previous
+        hidden state
+        x_t -- numpy.ndarray of shape (m, i), containing the data input
+        at time step t
         m -- Batch size
         i -- Dimensionality of the input
         h -- Dimensionality of the hidden state
