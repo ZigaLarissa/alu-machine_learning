@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""This module contains the RNNCell class"""
+"""
+This module contains the RNNCell class initialised.
+"""
 
 import numpy as np
 
