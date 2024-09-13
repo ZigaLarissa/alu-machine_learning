@@ -74,6 +74,19 @@ class BidirectionalCell:
 
         return h_prev
 
+    def softmax(self, x):
+        """
+        Applies softmax to a 2D numpy array.
+
+        Args:
+            x (numpy.ndarray): Array to apply softmax to.
+
+        Returns:
+            numpy.ndarray: Softmax applied array.
+        """
+        e_x = np.exp(x - np.max(x, axis=-1, keepdims=True))
+        return e_x / np.sum(e_x, axis=-1, keepdims=True)
+
     def output(self, H):
         """
         Calculates all outputs for the RNN.
@@ -96,6 +109,6 @@ class BidirectionalCell:
         Y = np.dot(H, self.Wy) + self.by
 
         # Apply softmax to get output probabilities
-        Y = softmax(Y_linear)
+        Y = self.softmax(Y_linear)
 
         return Y
