@@ -109,6 +109,6 @@ class BidirectionalCell:
         Y = np.dot(H, self.Wy) + self.by
 
         # Apply softmax to get output probabilities
-        Y = self.softmax(Y_linear)
+        Y = self.softmax(Y)
 
         return Y
