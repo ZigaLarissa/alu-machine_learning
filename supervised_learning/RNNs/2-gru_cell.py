@@ -6,74 +6,94 @@ This module contains the GRUCell class.
 import numpy as np
 
 
-class GRUCell:
-    """Represents a Gated Recurrent Unit (GRU) cell."""
-
+class BidirectionalCell:
+    """
+    This class represents a bidirectional cell of an RNN.
+    """
     def __init__(self, i, h, o):
         """
-        Initializes the GRUCell.
+        Constructor for the BidirectionalCell class.
 
-        Parameters:
-        i -- Dimensionality of the input data
-        h -- Dimensionality of the hidden state
-        o -- Dimensionality of the output
+        Args:
+            i (int): Dimensionality of the data.
+            h (int): Dimensionality of the hidden states.
+            o (int): Dimensionality of the outputs.
         """
-        self.Wz = np.random.randn(i + h, h)
-        self.Wr = np.random.randn(i + h, h)
-        self.Wh = np.random.randn(i + h, h)
-        self.Wy = np.random.randn(h, o)
+        # Weights and biases for the forward direction
+        self.Whf = np.random.normal(size=(i + h, h))
+        self.bhf = np.zeros((1, h))
 
-        self.bz = np.zeros((1, h))
-        self.br = np.zeros((1, h))
-        self.bh = np.zeros((1, h))
+        # Weights and biases for the backward direction
+        self.Whb = np.random.normal(size=(i + h, h))
+        self.bhb = np.zeros((1, h))
+
+        # Weights and biases for the output
+        self.Wy = np.random.normal(size=(2 * h, o))
         self.by = np.zeros((1, o))
-
-    def sigmoid(self, z):
-        """Applies the sigmoid activation function."""
-        return 1 / (1 + np.exp(-z))
-
-    def softmax(self, z):
-        """Applies the softmax activation function."""
-        exp_z = np.exp(z - np.max(z, axis=1, keepdims=True))
-        return exp_z / np.sum(exp_z, axis=1, keepdims=True)
 
     def forward(self, h_prev, x_t):
         """
-        Performs forward propagation for one time step of the GRU cell.
+        Performs forward propagation for one time step in
+        the forward direction.
 
-        Parameters:
-        h_prev -- numpy.ndarray of shape (m, h), containing the previous
-        hidden state
-        x_t -- numpy.ndarray of shape (m, i), containing the data input
-        at time step t
-        m -- Batch size
-        i -- Dimensionality of the input
-        h -- Dimensionality of the hidden state
+        Args:
+            h_prev (numpy.ndarray): Previous hidden state
+            of shape (m, h).
+            x_t (numpy.ndarray): Data input for the current time
+            step of shape (m, i).
 
         Returns:
-        h_next -- The next hidden state
-        y -- The output of the cell
+            h_next (numpy.ndarray): The next hidden state.
         """
-        m, _ = x_t.shape
-        h = h_prev.shape[1]
+        concat_input = np.concatenate((h_prev, x_t), axis=1)
+        h_next = np.tanh(np.dot(concat_input, self.Whf) + self.bhf)
+        return h_next
 
-        # Concatenate the previous hidden state and current input
-        h_x_concat = np.concatenate((h_prev, x_t), axis=1)
+    def backward(self, h_next, x_t):
+        """
+        Performs backward propagation for one time step in
+        the backward direction.
 
-        # Update gate
-        z_t = self.sigmoid(np.dot(h_x_concat, self.Wz) + self.bz)
+        Args:
+            h_next (numpy.ndarray): Next hidden state of shape (m, h).
+            x_t (numpy.ndarray): Data input for the current time step
+            of shape (m, i).
 
-        # Reset gate
-        r_t = self.sigmoid(np.dot(h_x_concat, self.Wr) + self.br)
+        Returns:
+            h_prev (numpy.ndarray): The previous hidden state.
+        """
+        concat_input = np.concatenate((h_next, x_t), axis=1)
+        h_prev = np.tanh(np.dot(concat_input, self.Whb) + self.bhb)
+        return h_prev
 
-        # Candidate hidden state (intermediate hidden state)
-        h_r_concat = np.concatenate((r_t * h_prev, x_t), axis=1)
-        h_hat = np.tanh(np.dot(h_r_concat, self.Wh) + self.bh)
+    def softmax(self, z):
+        """
+        Applies the softmax function to each element in z.
 
-        # Compute the next hidden state
-        h_next = (1 - z_t) * h_prev + z_t * h_hat
+        Args:
+            z (numpy.ndarray): Input array of shape (t, m, o).
 
-        # Compute the output of the cell (softmax activation)
-        y = self.softmax(np.dot(h_next, self.Wy) + self.by)
+        Returns:
+            numpy.ndarray: Softmax-activated output of the same shape as z.
+        """
+        exp_z = np.exp(z - np.max(z, axis=-1, keepdims=True))
+        return exp_z / exp_z.sum(axis=-1, keepdims=True)
 
-        return h_next, y
+    def output(self, H):
+        """
+        Calculates all outputs for the RNN.
+
+        Args:
+            H (numpy.ndarray): Array of shape (t, m, 2 * h) that contains the
+            concatenated hidden states from both directions, excluding their
+            initialized states.
+
+        Returns:
+            Y (numpy.ndarray): The outputs of the RNN.
+        """
+        # Compute the linear transformation
+        Y_linear = np.dot(H, self.Wy) + self.by
+        
+        # Apply softmax to get output probabilities
+        Y = self.softmax(Y_linear)
+        return Y
