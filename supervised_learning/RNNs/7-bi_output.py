@@ -21,15 +21,15 @@ class BidirectionalCell:
         """
         # Weights and biases for the forward direction
         self.Whf = np.random.normal(size=(i + h, h))
-        self.bhf = np.zeros((1, h))
+        self.bhf = np.zeros((1, h))  # Bias for forward hidden state
 
         # Weights and biases for the backward direction
         self.Whb = np.random.normal(size=(i + h, h))
-        self.bhb = np.zeros((1, h))
+        self.bhb = np.zeros((1, h))  # Bias for backward hidden state
 
         # Weights and biases for the output
         self.Wy = np.random.normal(size=(2 * h, o))
-        self.by = np.zeros((1, o))
+        self.by = np.zeros((1, o))  # Bias for the output
 
     def forward(self, h_prev, x_t):
         """
@@ -39,8 +39,8 @@ class BidirectionalCell:
         Args:
             h_prev (numpy.ndarray): Previous hidden state
             of shape (m, h).
-            x_t (numpy.ndarray): Data input for the current time
-            step of shape (m, i).
+            x_t (numpy.ndarray): Data input for the current
+            time step of shape (m, i).
 
         Returns:
             h_next (numpy.ndarray): The next hidden state.
@@ -55,8 +55,8 @@ class BidirectionalCell:
 
     def backward(self, h_next, x_t):
         """
-        Performs backward propagation for one time step in
-        the backward direction.
+        Performs backward propagation for one time step in the
+        backward direction.
 
         Args:
             h_next (numpy.ndarray): Next hidden state of shape (m, h).
@@ -79,8 +79,8 @@ class BidirectionalCell:
         Calculates all outputs for the RNN.
 
         Args:
-            H (numpy.ndarray): Concatenated hidden states from
-            both directions.
+            H (numpy.ndarray): Concatenated hidden states
+            from both directions.
                               Shape (t, m, 2 * h), where:
                                 t: number of time steps
                                 m: batch size
@@ -89,12 +89,12 @@ class BidirectionalCell:
         Returns:
             Y (numpy.ndarray): The outputs of the RNN.
                                Shape (t, m, o), where o is the
-                                output dimensionality.
+                               output dimensionality.
         """
         # Get the number of time steps (t) and batch size (m)
         t, m, _ = H.shape
 
-        # Calculate the outputs
+        # Calculate the outputs Y
         Y = np.dot(H, self.Wy) + self.by
 
         return Y
