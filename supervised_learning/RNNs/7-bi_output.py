@@ -91,8 +91,6 @@ class BidirectionalCell:
                                Shape (t, m, o), where o is the
                                output dimensionality.
         """
-        # Get the number of time steps (t) and batch size (m)
-        t, m, _ = H.shape
 
         # Calculate the outputs Y
         Y = np.dot(H, self.Wy) + self.by
