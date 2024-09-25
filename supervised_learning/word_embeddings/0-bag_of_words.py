@@ -5,7 +5,7 @@ import re
 
 
 def bag_of_words(sentences, vocab=None):
-    word_sentences = [word for word in word_sentence if word.isalpha()]
+    word_sentences = [word for word in sentences if word.isalpha()]
 
     # Tokenize and clean the sentences
     tokenized_sentences = [re.findall(r'\b\w+\b', sentence.lower()) for sentence in word_sentences]
