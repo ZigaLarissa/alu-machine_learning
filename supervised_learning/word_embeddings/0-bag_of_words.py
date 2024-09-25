@@ -21,10 +21,8 @@ def bag_of_words(sentences, vocab=None):
     # Tokenize the sentences by lowercasing and removing punctuation
     tokenized_sentences = []
     for sentence in sentences:
-        # Remove punctuation using translate
-        clean_sentence = sentence.translate(
-            str.maketrans('', '', string.punctuation)
-            )
+        # Remove punctuation using regex
+        clean_sentence = re.sub(r'[^\w\s]', '', sentence)
         tokenized_sentences.append(clean_sentence.lower().split())
 
     # Create vocabulary if not provided
