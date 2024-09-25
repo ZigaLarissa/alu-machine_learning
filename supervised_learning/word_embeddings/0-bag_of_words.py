@@ -6,7 +6,7 @@ import re
 
 def bag_of_words(sentences, vocab=None):
     # Tokenize and clean the sentences
-    tokenized_sentences = [re.findall(r'\b\w+\b', sentence.lower()) for sentence in sentences]
+    tokenized_sentences = [sentence.lower for sentence in sentences if sentence.isalpha()]
     
     # Build vocabulary if not provided
     if vocab is None:
