@@ -4,9 +4,7 @@ TF-IDF
 """
 
 import numpy as np
-from collections import Counter
-import re
-from math import log
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 def tf_idf(sentences, vocab=None):
@@ -25,14 +23,14 @@ def tf_idf(sentences, vocab=None):
             ]
         vocab = sorted(set(all_words))
 
-    embeddings = []
-    for sentence in tokenized_sentences:
-        sentence_embedding = []
-        for word in vocab:
-            tf = sentence.count(word) / len(sentence) if sentence else 0
-            df = sum([1 for s in tokenized_sentences if word in s])
-            idf = log(len(sentences) / (df + 1))
-            sentence_embedding.append(tf * idf)
-        embeddings.append(sentence_embedding)
+    # Initialize TF-IDF vectorizer
+    vectorizer = TfidfVectorizer(vocabulary=vocab)
 
-    return np.array(embeddings), vocab
+    # Fit and transform sentences
+    tfidf_matrix = vectorizer.fit_transform(sentences)
+
+    # Convert TF-IDF matrix to arrays
+    E = tfidf_matrix.toarray()
+    F = vectorizer.idf_
+
+    return E, F
