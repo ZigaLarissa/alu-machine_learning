@@ -14,7 +14,7 @@ def uni_bleu(references, sentence):
 
     # Step 1: Count the number of words in the candidate sentence
     sentence_count = Counter(sentence)
-    
+
     # Step 2: Count the maximum possible occurrences of each word
     max_ref_count = Counter()
     for ref in references:
@@ -34,7 +34,8 @@ def uni_bleu(references, sentence):
     # Step 4: Calculate brevity penalty
     ref_lengths = [len(ref) for ref in references]
     closest_ref_len = min(
-        ref_lengths, key=lambda ref_len: (abs(ref_len - len(sentence)), ref_len)
+        ref_lengths,
+        key=lambda ref_len: (abs(ref_len - len(sentence)), ref_len)
         )
 
     if len(sentence) > closest_ref_len:
