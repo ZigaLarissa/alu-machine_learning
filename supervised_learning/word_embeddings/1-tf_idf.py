@@ -31,6 +31,5 @@ def tf_idf(sentences, vocab=None):
 
     # Convert TF-IDF matrix to arrays
     E = tfidf_matrix.toarray()
-    F = vectorizer.idf_
 
-    return E, F
+    return E, vocab
