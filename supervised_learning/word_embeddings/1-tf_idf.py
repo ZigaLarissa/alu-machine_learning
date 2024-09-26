@@ -14,7 +14,9 @@ def tf_idf(sentences, vocab=None):
     tf-idf function
     """
     # Tokenize sentences
-    tokenized_sentences = [re.findall(r'\w+', sentence.lower()) for sentence in sentences]
+    tokenized_sentences = [
+        re.findall(r'\w+', sentence.lower()) for sentence in sentences
+        ]
 
     # Create vocabulary if not provided
     if vocab is None:
@@ -34,10 +36,14 @@ def tf_idf(sentences, vocab=None):
     word_to_index = {word: index for index, word in enumerate(features)}
 
     # Calculate document frequency
-    doc_frequency = Counter(word for sentence in tokenized_sentences for word in set(sentence))
+    doc_frequency = Counter(
+        word for sentence in tokenized_sentences for word in set(sentence)
+        )
 
     # Calculate IDF
-    idf = {word: log(len(sentences) / (doc_frequency[word] +1)) for word in features}
+    idf = {word: log(
+        len(sentences) / (doc_frequency[word] +1)
+        ) for word in features}
 
     # Initialize embeddings matrix
     embeddings = np.zeros((len(sentences), len(features)))
