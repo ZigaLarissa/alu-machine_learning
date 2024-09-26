@@ -22,6 +22,10 @@ def tf_idf(sentences, vocab=None):
             word for sentence in tokenized_sentences for word in sentence
             ]
         vocab = sorted(set(all_words))
+    else:
+        all_words = [
+            word for sentence in tokenized_sentences for word in sentence
+            ]
 
     # Initialize TF-IDF vectorizer
     vectorizer = TfidfVectorizer(vocabulary=vocab)
