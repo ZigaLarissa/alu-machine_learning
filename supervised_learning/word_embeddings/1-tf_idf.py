@@ -17,8 +17,8 @@ def tf_idf(sentences, vocab=None):
     # Fit and transform sentences
     tfidf_matrix = vectorizer.fit_transform(sentences)
 
-    # Get vocabulary from the vectorizer if not provided
-    vocab = vectorizer.get_feature_names_out()
+    # if vocab not, all words within sentence should be used
+    vocab = [word for word in sentences]
 
     # Convert TF-IDF matrix to an array
     E = tfidf_matrix.toarray()
