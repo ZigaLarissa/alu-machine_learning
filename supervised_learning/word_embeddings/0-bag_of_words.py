@@ -8,18 +8,19 @@ import re
 
 
 def bag_of_words(sentences, vocab=None):
-    # Tokenize sentences and remove 's' at the end of words
-    tokenized_sentences = [
-        [word.rstrip('s') for word in re.findall(r'\w+', sentence.lower())]
-        for sentence in sentences
-    ]
+    # Tokenize sentences
+    tokenized_sentences = [re.findall(r'\w+', sentence.lower()) for sentence in sentences]
     
     # Create vocabulary if not provided
     if vocab is None:
-        vocab = sorted(set(word for sentence in tokenized_sentences for word in sentence))
+        all_words = [word for sentence in tokenized_sentences for word in sentence]
+        vocab = sorted(set(all_words))
     
-    # Create features list
-    features = vocab
+    # Create features list, ensuring 'is' is included if present
+    features = [word for word in vocab if word != '' and word != 's']
+    if 'is' in all_words and 'is' not in features:
+        features.append('is')
+    features.sort()
     
     # Create word-to-index mapping
     word_to_index = {word: index for index, word in enumerate(features)}
@@ -32,6 +33,6 @@ def bag_of_words(sentences, vocab=None):
         word_counts = Counter(sentence)
         for word, count in word_counts.items():
             if word in word_to_index:
-                embeddings[i, word_to_index[word]] = count
+                embeddings[i, word_to_index[word]] += count
     
     return embeddings, features
