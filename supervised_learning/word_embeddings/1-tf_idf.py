@@ -17,10 +17,10 @@ def tf_idf(sentences, vocab=None):
     # Fit and transform sentences
     tfidf_matrix = vectorizer.fit_transform(sentences)
 
-    # if vocab not, all words within sentence should be used
-    vocab = [word for word in sentences]
+    # Extract feature names (vocabulary) if not provided
+    features = vectorizer.get_feature_names_out()
 
-    # Convert TF-IDF matrix to an array
-    E = tfidf_matrix.toarray()
+    # Convert TF-IDF matrix to an array (embeddings)
+    embeddings = tfidf_matrix.toarray()
 
-    return E, vocab
+    return embeddings, features
