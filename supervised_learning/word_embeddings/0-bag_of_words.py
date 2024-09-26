@@ -9,6 +9,9 @@ import re
 
 
 def bag_of_words(sentences, vocab=None):
+    """
+    Bag of words function
+    """
     # Tokenize sentences
     tokenized_sentences = [
         re.findall(r'\w+', sentence.lower()) for sentence in sentences
