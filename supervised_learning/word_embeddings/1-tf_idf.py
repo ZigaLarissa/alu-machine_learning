@@ -15,7 +15,7 @@ def tf_idf(sentences, vocab=None):
     """
     # Tokenize sentences
     tokenized_sentences = [re.findall(r'\w+', sentence.lower()) for sentence in sentences]
-    
+
     # Create vocabulary if not provided
     if vocab is None:
         all_words = [
@@ -27,22 +27,21 @@ def tf_idf(sentences, vocab=None):
             word for sentence in tokenized_sentences for word in sentence
             ]
 
-    
     # Create features list
-    features = vocab
-    
+    features = [word for word in vocab if word != '' and word != 's']
+
     # Create word-to-index mapping
     word_to_index = {word: index for index, word in enumerate(features)}
-    
+
     # Calculate document frequency
     doc_frequency = Counter(word for sentence in tokenized_sentences for word in set(sentence))
-    
+
     # Calculate IDF
     idf = {word: log(len(sentences) / doc_frequency[word]) for word in features}
-    
+
     # Initialize embeddings matrix
     embeddings = np.zeros((len(sentences), len(features)))
-    
+
     # Fill embeddings matrix
     for i, sentence in enumerate(tokenized_sentences):
         word_counts = Counter(sentence)
@@ -51,5 +50,5 @@ def tf_idf(sentences, vocab=None):
                 tf = count / len(sentence)
                 tfidf = tf * idf[word]
                 embeddings[i, word_to_index[word]] = tfidf
-    
+
     return embeddings, features
