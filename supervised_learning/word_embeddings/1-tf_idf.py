@@ -3,7 +3,7 @@
 TF-IDF
 """
 
-import numpy as np
+import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
