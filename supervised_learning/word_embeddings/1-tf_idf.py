@@ -18,7 +18,15 @@ def tf_idf(sentences, vocab=None):
     
     # Create vocabulary if not provided
     if vocab is None:
-        vocab = sorted(set(word for sentence in tokenized_sentences for word in sentence))
+        all_words = [
+            word for sentence in tokenized_sentences for word in sentence
+            ]
+        vocab = sorted(set(all_words))
+    else:
+        all_words = [
+            word for sentence in tokenized_sentences for word in sentence
+            ]
+
     
     # Create features list
     features = vocab
