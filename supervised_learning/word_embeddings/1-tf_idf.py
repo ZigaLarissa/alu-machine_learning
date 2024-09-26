@@ -18,7 +18,7 @@ def tf_idf(sentences, vocab=None):
     tfidf_matrix = vectorizer.fit_transform(sentences)
 
     # Extract feature names (vocabulary) if not provided
-    features = vectorizer.get_feature_names_out()
+    features = vectorizer.get_feature_names()
 
     # Convert TF-IDF matrix to an array (embeddings)
     embeddings = tfidf_matrix.toarray()
