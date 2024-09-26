@@ -4,8 +4,8 @@ Convert Gensim Word2Vec to Keras Embedding Layer
 """
 
 import numpy as np
-from tensorflow.keras.layers import Embedding
-from tensorflow.keras.initializers import Constant
+from tensorflow.python.keras.layers import Embedding
+from tensorflow.python.keras.initializers import Constant
 
 
 def gensim_to_keras(model):
