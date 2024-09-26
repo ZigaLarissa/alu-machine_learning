@@ -25,7 +25,7 @@ def bag_of_words(sentences, vocab=None):
         clean_sentence = sentence.translate(
             str.maketrans('', '', string.punctuation)
             )
-        tokenized_sentences.append(clean_sentence.lower().split())
+        tokenized_sentences.append(clean_sentence.lower())
 
     # Create vocabulary if not provided
     if vocab is None:
