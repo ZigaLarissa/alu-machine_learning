@@ -60,9 +60,9 @@ def cumulative_bleu(references, sentence, n):
 
     # Step 3: Calculate brevity penalty
     ref_lens = [len(ref) for ref in references]
-    closest_ref_len = min(ref_lens,
-        key=lambda ref_len: (abs(ref_len - len(sentence)), ref_len)
-    )
+    closest_ref_len = min(ref_lens,key=lambda ref_len: (
+        abs(ref_len - len(sentence)), ref_len
+        ))
 
     if len(sentence) > closest_ref_len:
         bp = 1
