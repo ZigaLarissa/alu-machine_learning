@@ -8,8 +8,11 @@ import re
 
 
 def bag_of_words(sentences, vocab=None):
-    # Tokenize sentences
-    tokenized_sentences = [re.findall(r'\w+', sentence.lower()) for sentence in sentences]
+    # Tokenize sentences and remove 's' at the end of words
+    tokenized_sentences = [
+        [word.rstrip('s') for word in re.findall(r'\w+', sentence.lower())]
+        for sentence in sentences
+    ]
     
     # Create vocabulary if not provided
     if vocab is None:
@@ -22,7 +25,7 @@ def bag_of_words(sentences, vocab=None):
     word_to_index = {word: index for index, word in enumerate(features)}
     
     # Initialize embeddings matrix
-    embeddings = np.zeros((len(sentences), len(features)))
+    embeddings = np.zeros((len(sentences), len(features)), dtype=int)
     
     # Fill embeddings matrix
     for i, sentence in enumerate(tokenized_sentences):
