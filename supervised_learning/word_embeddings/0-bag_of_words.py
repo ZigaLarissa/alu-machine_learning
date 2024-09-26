@@ -1,27 +1,34 @@
 #!/usr/bin/env python3
 """
-Bag Of Words
+Bag of words
 """
-
 import numpy as np
+from collections import Counter
+import re
 
 
 def bag_of_words(sentences, vocab=None):
-    '''
-    Function that creates
-    a bag of words embedding matrix
-    '''
+    # Tokenize sentences
+    tokenized_sentences = [re.findall(r'\w+', sentence.lower()) for sentence in sentences]
+    
+    # Create vocabulary if not provided
     if vocab is None:
-        vocab = set()
-    for sentence in sentences:
-        words = sentence.split()
-        for word in words:
-            vocab.add(word)
-    vocab = sorted(list(vocab))
-    embeddings = np.zeros((len(sentences), len(vocab)))
-    for i, sentence in enumerate(sentences):
-        words = sentence.split()
-        for j, word in enumerate(vocab):
-            embeddings[i, j] = words.count(word)
-
-    return embeddings, vocab
+        vocab = sorted(set(word for sentence in tokenized_sentences for word in sentence))
+    
+    # Create features list
+    features = vocab
+    
+    # Create word-to-index mapping
+    word_to_index = {word: index for index, word in enumerate(features)}
+    
+    # Initialize embeddings matrix
+    embeddings = np.zeros((len(sentences), len(features)))
+    
+    # Fill embeddings matrix
+    for i, sentence in enumerate(tokenized_sentences):
+        word_counts = Counter(sentence)
+        for word, count in word_counts.items():
+            if word in word_to_index:
+                embeddings[i, word_to_index[word]] = count
+    
+    return embeddings, features
