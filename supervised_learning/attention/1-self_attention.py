@@ -24,21 +24,26 @@ class SelfAttention(tf.keras.layers.Layer):
     def call(self, s_prev, hidden_states):
         """
         s_prev: Previous decoder hidden state, shape (batch, units)
-        hidden_states: Encoder hidden states, shape (batch, input_seq_len, units)
+        hidden_states: Encoder hidden states,
+        shape (batch, input_seq_len, units)
         Returns:
           - context: Context vector, shape (batch, units)
-          - weights: Attention weights, shape (batch, input_seq_len, 1)
+          - weights: Attention weights,
+          shape (batch, input_seq_len, 1)
         """
-        # Expand s_prev to (batch, 1, units) so it can be added to hidden_states
+        # Expand s_prev to (batch, 1, units) so it
+        # can be added to hidden_states
         s_prev_expanded = tf.expand_dims(s_prev, 1)
 
         # Score calculation: V(tanh(W(s_prev) + U(hidden_states)))
-        score = self.V(tf.nn.tanh(self.W(s_prev_expanded) + self.U(hidden_states)))
+        score = self.V(
+            tf.nn.tanh(self.W(s_prev_expanded) + self.U(hidden_states))
+            )
 
         # Softmax over the scores to get attention weights
-        weights = tf.nn.softmax(score, axis=1)  # Shape: (batch, input_seq_len, 1)
+        weights = tf.nn.softmax(score, axis=1)
 
         # Calculate the context vector as the weighted sum of hidden_states
-        context = tf.reduce_sum(weights * hidden_states, axis=1)  # Shape: (batch, units)
+        context = tf.reduce_sum(weights * hidden_states, axis=1)
 
         return context, weights
