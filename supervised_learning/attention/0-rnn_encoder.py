@@ -11,6 +11,9 @@ class RNNEncoder(tf.keras.layers.Layer):
     RNN Encoder.
     """
     def __init__(self, vocab, embedding, units, batch):
+        """
+        RNN Encoder init function.
+        """
         super(RNNEncoder, self).__init__()
         self.batch = batch
         self.units = units
