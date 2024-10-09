@@ -30,7 +30,7 @@ def question_answer(corpus_path):
         reference = semantic_search(corpus_path, user_input)
         answer = specific_question_answer(user_input, reference)
         if answer is None:
-            print("A: Sorry, I do not understand your question.")
+            print("A: Sorry, I do not understand the question.")
         else:
             print("A: ", answer)
 
