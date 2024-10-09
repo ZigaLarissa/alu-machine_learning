@@ -3,7 +3,7 @@
 Attention is all we need.
 """
 import tensorflow as tf
-from 1_self_attention import SelfAttention
+SelfAttention = __import__('1-self_attention').SelfAttention
 
 class RNNDecoder(tf.keras.layers.Layer):
     """
