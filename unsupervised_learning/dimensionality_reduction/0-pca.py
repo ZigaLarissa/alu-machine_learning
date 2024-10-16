@@ -1,4 +1,9 @@
+#!/usr/bin/env python3
+"""
+PCA
+"""
 import numpy as np
+
 
 def pca(X, var=0.95):
     """
