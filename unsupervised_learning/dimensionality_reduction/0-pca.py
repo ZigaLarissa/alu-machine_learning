@@ -20,7 +20,7 @@ def pca(X, var=0.95):
     w, v = np.linalg.eig(cov)
 
     # Sort eigenvalues
-    w_sort = np.sort(w)[::-1]
+    idx = np.sort(w)[::-1]
     w_sort = w[idx]
     v_sort = v[:, idx]
 
