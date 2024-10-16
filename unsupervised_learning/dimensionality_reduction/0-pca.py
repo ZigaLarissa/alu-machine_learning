@@ -21,9 +21,11 @@ def pca(X, var=0.95):
 
     # Sort eigenvalues
     w_sort = np.sort(w)[::-1]
+    w_sort = w[idx]
+    v_sort = v[:, idx]
 
     # Explained variance
-    exp_var = w_sort / np.sum(w)
+    exp_var = w_sort / np.sum(w_sort)
 
     # Cumulative explained variance
     cum_exp_var = np.cumsum(exp_var)
@@ -32,6 +34,6 @@ def pca(X, var=0.95):
     d = np.argwhere(cum_exp_var >= var)[0, 0]
 
     # Projection matrix
-    W = v[:, :d + 1]
+    W = v_sort[:, :d + 1]
 
     return W
