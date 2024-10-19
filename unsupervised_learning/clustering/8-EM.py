@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-This module contains a function that performs the
-Expectation Maximization (EM) algorithm for a Gaussian Mixture Model (GMM).
+This module contains a function that does the
+Expectation Maximization (EM) algorithm pour a Gaussian Mixture Model (GMM).
 """
 
 import numpy as np
@@ -12,22 +12,22 @@ maximization = __import__('7-maximization').maximization
 
 def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     """
-    Performs the expectation maximization for a Gaussian Mixture Model (GMM).
+    Do the expectation maximization a Gaussian Mixture Model (GMM).
 
     Parameters:
     - X: numpy.ndarray of shape (n, d) containing the dataset
         - n: number of data points
-        - d: number of dimensions for each data point
+        - d: number of dimensions each data point
     - k: positive integer, the number of clusters
     - iterations: positive integer, maximum number of iterations (default is 1000)
-    - tol: non-negative float, tolerance for early stopping (default is 1e-5)
+    - tol: non-negative float, tolerance early stopping (default is 1e-5)
     - verbose: boolean, if True, prints log likelihood every 10 iterations (default is False)
 
     Returns:
-    - pi: numpy.ndarray of shape (k,) containing the priors for each cluster
-    - m: numpy.ndarray of shape (k, d) containing the centroid means for each cluster
-    - S: numpy.ndarray of shape (k, d, d) containing the covariance matrices for each cluster
-    - g: numpy.ndarray of shape (k, n) containing the probabilities for each data point in each cluster
+    - pi: numpy.ndarray of shape (k,) containing the priors each cluster
+    - m: numpy.ndarray of shape (k, d) containing the centroid means each cluster
+    - S: numpy.ndarray of shape (k, d, d) containing the covariance matrices each cluster
+    - g: numpy.ndarray of shape (k, n) containing the probabilities each data point in each cluster
     - l: log likelihood of the model
     - None, None, None, None, None on failure
     """
@@ -62,7 +62,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
         if pi is None or m is None or S is None:
             return None, None, None, None, None
 
-        # Check for convergence (difference in log likelihood)
+        # Check convergence (difference in log likelihood)
         if abs(log_likelihood - log_likelihood_old) <= tol:
             break
 
