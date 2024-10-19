@@ -5,9 +5,9 @@ Expectation Maximization (EM) algorithm for a Gaussian Mixture Model (GMM).
 """
 
 import numpy as np
-from 4_initialize import initialize
-from 6_expectation import expectation
-from 7_maximization import maximization
+initialize = __import__('4-initialize').initialize
+expectation = __import__('6-expectation').expectation
+maximization = __import__('7-maximization').maximization
 
 
 def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
